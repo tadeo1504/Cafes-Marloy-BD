@@ -3,7 +3,7 @@
 ###
 
 <div align="left">
-  <img src="https://s3.us-east-1.wasabisys.com/imasd/2022/10/Logo-UCU-001-FINAL-03_ID_Uruguay.jpg" width="52" height="40" alt="UCU logo" />
+  <img src="https://s3.us-east-1.wasabisys.com/imasd/2022/10/Logo-UCU-001-FINAL-03_ID_Uruguay.jpg" width="51" height="29" alt="UCU logo" />
 </div>
 
 
