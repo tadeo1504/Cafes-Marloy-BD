@@ -3,7 +3,7 @@
 ###
 
 <div align="left">
-  <img src="[https://webasignatura.ucu.edu.uy/pluginfile.php/618/theme_remui/logo/1747186926/isologo-ucu-blanco-transparente142x50.png" width="52" height="40" alt="UCU logo"] />
+  <img src="[https://s3.us-east-1.wasabisys.com/imasd/2022/10/Logo-UCU-001-FINAL-03_ID_Uruguay.jpg" width="52" height="40" alt="UCU logo"] />
 </div>
 
 ###
