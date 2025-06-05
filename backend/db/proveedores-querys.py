@@ -9,9 +9,7 @@ import mysql.connector
 def insertar_proveedor():
     # Pedir datos al usuario
     nombre = input("📥 Ingresá el nombre del proveedor: ").strip()
-    direccion = input("📥 Ingresá la dirección: ").strip()
-    telefono = input("📥 Ingresá el teléfono: ").strip()
-    correo = input("📥 Ingresá el correo: ").strip()
+    contacto = input("📥 Ingresá el contacto: ").strip()
 
     # Crear conexión
     conexion = crear_conexion()
@@ -23,10 +21,10 @@ def insertar_proveedor():
     try:
         cursor = conexion.cursor()
         consulta = """
-            INSERT INTO proveedores (nombre, direccion, telefono, correo)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO proveedores (nombre, contacto)
+            VALUES (%s, %s)
         """
-        valores = (nombre, direccion, telefono, correo)
+        valores = (nombre, contacto)
         cursor.execute(consulta, valores)
         conexion.commit()
         print("✅ Proveedor insertado exitosamente.")
@@ -40,9 +38,7 @@ def editar_proveedor():
     id_proveedor = input("📥 Ingresá el ID del proveedor a editar: ").strip()
     # Pedir nuevos datos al usuario
     nombre = input("📥 Ingresá el nuevo nombre del proveedor: ").strip()
-    direccion = input("📥 Ingresá la nueva dirección: ").strip()
-    telefono = input("📥 Ingresá el nuevo teléfono: ").strip()
-    correo = input("📥 Ingresá el nuevo correo: ").strip()
+    contacto = input("📥 Ingresá el nuevo contacto: ").strip()
     # Crear conexión
     conexion = crear_conexion()
     if not conexion:
@@ -53,10 +49,10 @@ def editar_proveedor():
         cursor = conexion.cursor()
         consulta = """
             UPDATE proveedores
-            SET nombre = %s, direccion = %s, telefono = %s, correo = %s
+            SET nombre = %s, contacto = %s
             WHERE id_proveedor = %s
         """
-        valores = (nombre, direccion, telefono, correo, id_proveedores)
+        valores = (nombre, contacto, id_proveedores)
         cursor.execute(consulta, valores)
         conexion.commit()
         if cursor.rowcount > 0:
