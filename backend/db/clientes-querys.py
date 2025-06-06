@@ -6,15 +6,7 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_cliente():
-    # Pedir datos al usuario
-    nombre = input("📥 Ingresá el nombre del cliente: ").strip()
-    direccion = input("📥 Ingresá la dirección: ").strip()
-    telefono = input("📥 Ingresá el teléfono: ").strip()
-    correo = input("📥 Ingresá el correo: ").strip()
-
-    # Crear conexión
-    conexion = crear_conexion()
+def insertar_cliente(conexion, nombre, direccion, telefono, correo):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -35,16 +27,7 @@ def insertar_cliente():
     finally:
         cerrar_conexion(conexion)
 
-def editar_cliente():
-    #pedir ID del cliente a editar
-    id_cliente = input("📥 Ingresá el ID del cliente a editar: ").strip()
-    # Pedir nuevos datos al usuario
-    nombre = input("📥 Ingresá el nuevo nombre del cliente: ").strip()
-    direccion = input("📥 Ingresá la nueva dirección: ").strip()
-    telefono = input("📥 Ingresá el nuevo teléfono: ").strip()
-    correo = input("📥 Ingresá el nuevo correo: ").strip()
-    # Crear conexión
-    conexion = crear_conexion()
+def editar_cliente(conexion, nombre, direccion, telefono, correo):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -69,7 +52,7 @@ def editar_cliente():
         cerrar_conexion(conexion)
         
 
-def eliminar_cliente():
+def eliminar_cliente(conexion, id):
     # Implementar lógica para eliminar cliente
     pass
 
