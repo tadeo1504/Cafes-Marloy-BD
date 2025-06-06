@@ -53,10 +53,29 @@ def editar_cliente(conexion, nombre, direccion, telefono, correo):
         
 
 def eliminar_cliente(conexion, id):
-    # Implementar lógica para eliminar cliente
-    pass
+   if not conexion:
+        print("❌ No se pudo establecer la conexión. Saliendo...")
+        return
+    # Armar y ejecutar consulta
+    try:
+        cursor = conexion.cursor()
+        consulta = """
+            DELETE clientes
+            WHERE id_cliente = %s
+        """
+        cursor.execute(consulta, valores)
+        conexion.commit()
+        if cursor.rowcount > 0:
+            print("✅ Cliente eliminado exitosamente.")
+        else:
+            print("📭 No se encontró un cliente con ese ID.")
+    except mysql.connector.Error as e:
+        print(f"❌ Error al eliminar cliente: {e}")
+    finally:
+        cerrar_conexion(conexion)
+        
 
-def listar_clientes():
+def listar_clientes(conexion):
     # Implementar lógica para listar clientes
     pass
 
