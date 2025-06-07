@@ -2,7 +2,7 @@
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
-from backend.db.Queries.clientes-querys import (
+from backend.db.Queries.clientes-queries import (
     INSERTAR_CLIENTE,
     EDITAR_CLIENTE,
     ELIMINAR_CLIENTE,
