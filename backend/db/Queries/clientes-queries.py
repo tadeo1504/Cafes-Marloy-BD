@@ -1,7 +1,7 @@
-#abm de clientes
+#ABM de clientes.
 # para manejar el alta, baja, modificacion y consulta de clientes
 # es decir insert, update, delete y select
-# y luego importarlo en el controlador de clientes
+# y luego importarlo en el controlador de clientes.
 
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
