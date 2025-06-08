@@ -3,11 +3,7 @@
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
-<<<<<<< Updated upstream
-from backend.db.clientes_querys import (
-=======
-from backend.db.Queries.clientes_queries import (
->>>>>>> Stashed changes
+from backend.db.queries.clientes_queries import (
     INSERTAR_CLIENTE,
     EDITAR_CLIENTE,
     ELIMINAR_CLIENTE,

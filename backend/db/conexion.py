@@ -21,17 +21,6 @@ def crear_conexion():
         print(f"❌ Error al conectar a la base de datos: {e}")
     return None
 
-def ejecutar_consulta(conexion, consulta):
-    try:
-        cursor = conexion.cursor()
-        cursor.execute(consulta)
-        conexion.commit()
-        print("✅ Consulta ejecutada exitosamente")
-        return True
-    except Error as e:
-        print(f"❌ Error al ejecutar la consulta: {e}")
-        return False
-
 def cerrar_conexion(conexion):
     if conexion and conexion.is_connected():
         conexion.close()

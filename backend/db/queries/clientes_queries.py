@@ -74,12 +74,28 @@ def eliminar_cliente(conexion, id):
     finally:
         cerrar_conexion(conexion)
         
-
 def listar_clientes(conexion):
-    # Implementar lógica para listar clientes
-    pass
+    cursor = conexion.cursor()
+    try:
+        cursor.execute("SELECT id, nombre, direccion, telefono, correo FROM clientes")
+        clientes = cursor.fetchall()
+        
+        if not clientes:
+            print("No hay clientes registrados.")
+            return
+        
+        print("\n=== Lista de Clientes ===")
+        for cliente in clientes:
+            id, nombre, direccion, telefono, correo = cliente
+            print(f"ID: {id}")
+            print(f"Nombre: {nombre}")
+            print(f"Dirección: {direccion}")
+            print(f"Teléfono: {telefono}")
+            print(f"Correo: {correo}")
+    
+    except Exception as e:
+        print("Error al listar clientes:", e)
+    
+    finally:
+        cursor.close()
 
-
-
-if __name__ == "__main__":
-    insertar_cliente()

@@ -65,9 +65,27 @@ def editar_proveedor():
         cerrar_conexion(conexion)
         
 
-def eliminar_proveedor():
-    # Implementar lógica para eliminar proveedores
-    pass
+def eliminar_proveedor(conexion, id_proveedor):
+    if not conexion:
+        print("❌ No se pudo establecer la conexión. Saliendo...")
+        return
+    # Armar y ejecutar consulta
+    try:
+        cursor = conexion.cursor()
+        consulta = """
+            DELETE proveedor
+            WHERE id = %s
+        """
+        cursor.execute(consulta, id_proveedor)
+        conexion.commit()
+        if cursor.rowcount > 0:
+            print("✅ Proveedor eliminado exitosamente.")
+        else:
+            print("📭 No se encontró un proveedor con ese ID.")
+    except mysql.connector.Error as e:
+        print(f"❌ Error al eliminar proveedor: {e}")
+    finally:
+        cerrar_conexion(conexion)
 
 def listar_proveedor():
     # Implementar lógica para listar proveedores
