@@ -65,7 +65,7 @@ def editar_proveedor():
         cerrar_conexion(conexion)
         
 
-def eliminar_proveedor():
+def eliminar_proveedor(conexion, id_proveedor):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -74,9 +74,9 @@ def eliminar_proveedor():
         cursor = conexion.cursor()
         consulta = """
             DELETE proveedor
-            WHERE id_proveedor = %s
+            WHERE id = %s
         """
-        cursor.execute(consulta, valores)
+        cursor.execute(consulta, id_proveedor)
         conexion.commit()
         if cursor.rowcount > 0:
             print("✅ Proveedor eliminado exitosamente.")

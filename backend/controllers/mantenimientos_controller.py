@@ -3,7 +3,7 @@
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
-from backend.db.queries.mantenimientos-queries import (
+from backend.db.queries.mantenimientos_queries import (
     INSERTAR_MANTENIMIENTO,
     EDITAR_MANTENIMIENTO,
     ELIMINAR_MANTENIMIENTO,

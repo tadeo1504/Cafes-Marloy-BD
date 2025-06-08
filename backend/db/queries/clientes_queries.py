@@ -27,7 +27,7 @@ def insertar_cliente(conexion, nombre, direccion, telefono, correo):
     finally:
         cerrar_conexion(conexion)
 
-def editar_cliente(conexion, nombre, direccion, telefono, correo):
+def editar_cliente(conexion, nombre, direccion, telefono, correo, id_cliente):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -53,7 +53,7 @@ def editar_cliente(conexion, nombre, direccion, telefono, correo):
         
 
 def eliminar_cliente(conexion, id):
-   if not conexion:
+    if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
     # Armar y ejecutar consulta
@@ -63,7 +63,7 @@ def eliminar_cliente(conexion, id):
             DELETE clientes
             WHERE id_cliente = %s
         """
-        cursor.execute(consulta, valores)
+        cursor.execute(consulta, id)
         conexion.commit()
         if cursor.rowcount > 0:
             print("✅ Cliente eliminado exitosamente.")
@@ -99,7 +99,3 @@ def listar_clientes(conexion):
     finally:
         cursor.close()
 
-
-
-if __name__ == "__main__":
-    insertar_cliente()

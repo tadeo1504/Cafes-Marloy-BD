@@ -1,4 +1,5 @@
-#Maneja altas, bajas, modificaciones y consultas de clientes.(insert, update, delete y select)
+#maneja altas, bajas, modificaciones y consultas de clientes
+#es decir insert, update, delete y select
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
@@ -8,6 +9,7 @@ from backend.db.queries.clientes_queries import (
     ELIMINAR_CLIENTE,
     LISTAR_CLIENTES
 )
+
 
 def alta_cliente():
     print("=== Alta de Cliente ===")
@@ -56,11 +58,11 @@ def baja_cliente():
             print("No se pudo eliminar el cliente.")
             
 
-def consulta_clientes():
+def listar_clientes():
     print("=== Lista de Clientes ===")
     conexion = crear_conexion()
     if conexion:
-        clientes = listar_clientes(conexion)
+        clientes = obtener_todos_los_clientes(conexion)
         cerrar_conexion(conexion)
 
         if clientes:
@@ -68,3 +70,4 @@ def consulta_clientes():
                 print(f"ID: {c[0]} | Nombre: {c[1]} | Dirección: {c[2]} | Tel: {c[3]} | Correo: {c[4]}")
         else:
             print("No se encontraron clientes.")
+
