@@ -2,7 +2,7 @@
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
-from backend.db.queries.insumos-queries import (
+from backend.db.queries.insumos_queries import (
     INSERTAR_INSUMO,
     EDITAR_INSUMO,
     ELIMINAR_INSUMO,
