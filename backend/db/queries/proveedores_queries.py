@@ -2,49 +2,30 @@
 # para manejar el alta, baja, modificacion y consulta de proveedores
 # es decir insert, update, delete y select
 # y luego importarlo en el controlador de proveedores
+# backend/db/queries/proveedores_queries.py
 
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_proveedor():
-    # Pedir datos al usuario
-    nombre = input("📥 Ingresá el nombre del proveedor: ").strip()
-    contacto = input("📥 Ingresá el contacto: ").strip()
-
-    # Crear conexión
+def insertar_proveedor(nombre, contacto):
     conexion = crear_conexion()
     if not conexion:
-        print("❌ No se pudo establecer la conexión. Saliendo...")
-        return
-
-    # Armar y ejecutar consulta
+        return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
-        consulta = """
-            INSERT INTO proveedores (nombre, contacto)
-            VALUES (%s, %s)
-        """
-        valores = (nombre, contacto)
-        cursor.execute(consulta, valores)
+        consulta = "INSERT INTO proveedores (nombre, contacto) VALUES (%s, %s)"
+        cursor.execute(consulta, (nombre, contacto))
         conexion.commit()
-        print("✅ Proveedor insertado exitosamente.")
+        return {"ok": True}
     except mysql.connector.Error as e:
-        print(f"❌ Error al insertar proveedor: {e}")
+        return {"ok": False, "error": str(e)}
     finally:
         cerrar_conexion(conexion)
 
-def editar_proveedor():
-    #pedir ID del proveedor a editar
-    id_proveedor = input("📥 Ingresá el ID del proveedor a editar: ").strip()
-    # Pedir nuevos datos al usuario
-    nombre = input("📥 Ingresá el nuevo nombre del proveedor: ").strip()
-    contacto = input("📥 Ingresá el nuevo contacto: ").strip()
-    # Crear conexión
+def editar_proveedor(id_proveedor, nombre, contacto):
     conexion = crear_conexion()
     if not conexion:
-        print("❌ No se pudo establecer la conexión. Saliendo...")
-        return
-    # Armar y ejecutar consulta
+        return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
         consulta = """
@@ -52,46 +33,39 @@ def editar_proveedor():
             SET nombre = %s, contacto = %s
             WHERE id_proveedor = %s
         """
-        valores = (nombre, contacto, id_proveedores)
-        cursor.execute(consulta, valores)
+        cursor.execute(consulta, (nombre, contacto, id_proveedor))
         conexion.commit()
-        if cursor.rowcount > 0:
-            print("✅ Proveedor editado exitosamente.")
-        else:
-            print("📭 No se encontró un proveedor con ese ID.")
+        return {"ok": True, "updated": cursor.rowcount}
     except mysql.connector.Error as e:
-        print(f"❌ Error al editar proveedor: {e}")
+        return {"ok": False, "error": str(e)}
     finally:
         cerrar_conexion(conexion)
-        
 
-def eliminar_proveedor(conexion, id_proveedor):
+def eliminar_proveedor(id_proveedor):
+    conexion = crear_conexion()
     if not conexion:
-        print("❌ No se pudo establecer la conexión. Saliendo...")
-        return
-    # Armar y ejecutar consulta
+        return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
-        consulta = """
-            DELETE proveedor
-            WHERE id = %s
-        """
-        cursor.execute(consulta, id_proveedor)
+        consulta = "DELETE FROM proveedores WHERE id_proveedor = %s"
+        cursor.execute(consulta, (id_proveedor,))
         conexion.commit()
-        if cursor.rowcount > 0:
-            print("✅ Proveedor eliminado exitosamente.")
-        else:
-            print("📭 No se encontró un proveedor con ese ID.")
+        return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:
-        print(f"❌ Error al eliminar proveedor: {e}")
+        return {"ok": False, "error": str(e)}
     finally:
         cerrar_conexion(conexion)
 
-def listar_proveedor():
-    # Implementar lógica para listar proveedores
-    pass
-
-
-
-if __name__ == "__main__":
-    insertar_proveedor()
+def listar_proveedores():
+    conexion = crear_conexion()
+    if not conexion:
+        return {"ok": False, "error": "No se pudo conectar a la BD"}
+    try:
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM proveedores")
+        resultados = cursor.fetchall()
+        return {"ok": True, "data": resultados}
+    except mysql.connector.Error as e:
+        return {"ok": False, "error": str(e)}
+    finally:
+        cerrar_conexion(conexion)
