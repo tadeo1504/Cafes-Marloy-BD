@@ -56,11 +56,11 @@ def baja_cliente():
             print("No se pudo eliminar el cliente.")
             
 
-def listar_clientes():
+def consulta_clientes():
     print("=== Lista de Clientes ===")
     conexion = crear_conexion()
     if conexion:
-        clientes = obtener_todos_los_clientes(conexion)
+        clientes = listar_clientes(conexion)
         cerrar_conexion(conexion)
 
         if clientes:
