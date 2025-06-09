@@ -1,4 +1,5 @@
-
+# ABM de tecnicos.(insert, update, delete, select)
+# Permite manejar el alta, baja, modificacion y consulta de tecnicos y luego importarlo en el controlador de tecnicos.
 
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
