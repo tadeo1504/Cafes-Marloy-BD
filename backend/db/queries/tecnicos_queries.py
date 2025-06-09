@@ -4,14 +4,14 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_tecnico(nombre, contacto):
+def insertar_tecnico(ci, nombre, apellido, telefono):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
-        consulta = "INSERT INTO proveedores (nombre, contacto) VALUES (%s, %s)"
-        cursor.execute(consulta, (nombre, contacto))
+        consulta = "INSERT INTO tecnicos (ci, nombre, apellido, telefono) VALUES (%s, %s, %s, %s)"
+        cursor.execute(consulta, (ci, nombre, apellido, telefono))
         conexion.commit()
         return {"ok": True}
     except mysql.connector.Error as e:
@@ -19,7 +19,7 @@ def insertar_tecnico(nombre, contacto):
     finally:
         cerrar_conexion(conexion)
 
-def editar_tecnico(id_tecnico, nombre, contacto):
+def editar_tecnico(ci, nombre, apellido, telefono):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
@@ -27,10 +27,10 @@ def editar_tecnico(id_tecnico, nombre, contacto):
         cursor = conexion.cursor()
         consulta = """
             UPDATE tecnicos
-            SET nombre = %s, contacto = %s
-            WHERE id_tecnico = %s
+            SET ci = %s, nombre = %s, apellido = %s, telefono = %s
+            WHERE ci = %s
         """
-        cursor.execute(consulta, (nombre, contacto, id_tecnico))
+        cursor.execute(consulta, (ci, nombre, apellido, telefono))
         conexion.commit()
         return {"ok": True, "updated": cursor.rowcount}
     except mysql.connector.Error as e:
@@ -38,14 +38,14 @@ def editar_tecnico(id_tecnico, nombre, contacto):
     finally:
         cerrar_conexion(conexion)
 
-def eliminar_tecnico(id_tecnico):
+def eliminar_tecnico(ci):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
-        consulta = "DELETE FROM tecnicos WHERE id_tecnico = %s"
-        cursor.execute(consulta, (id_proveedor,))
+        consulta = "DELETE FROM tecnicos WHERE ci = %s"
+        cursor.execute(consulta, (ci))
         conexion.commit()
         return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:
