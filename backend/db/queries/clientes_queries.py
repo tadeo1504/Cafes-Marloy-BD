@@ -73,27 +73,15 @@ def eliminar_cliente(conexion, id):
         cerrar_conexion(conexion)
         
 def listar_clientes(conexion):
-    cursor = conexion.cursor()
+    conexion = crear_conexion()
+    if not conexion:
+        return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
-        cursor.execute("SELECT id, nombre, direccion, telefono, correo FROM clientes")
-        clientes = cursor.fetchall()
-        
-        if not clientes:
-            print("No hay clientes registrados.")
-            return
-        
-        print("\n=== Lista de Clientes ===")
-        for cliente in clientes:
-            id, nombre, direccion, telefono, correo = cliente
-            print(f"ID: {id}")
-            print(f"Nombre: {nombre}")
-            print(f"Dirección: {direccion}")
-            print(f"Teléfono: {telefono}")
-            print(f"Correo: {correo}")
-    
-    except Exception as e:
-        print("Error al listar clientes:", e)
-    
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM clientes")
+        resultados = cursor.fetchall()
+        return {"ok": True, "data": resultados}
+    except mysql.connector.Error as e:
+        return {"ok": False, "error": str(e)}
     finally:
-        cursor.close()
-
+        cerrar_conexion(conexion)
