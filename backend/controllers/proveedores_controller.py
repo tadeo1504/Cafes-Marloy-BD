@@ -1,10 +1,9 @@
-#maneja altas, bajas, modificaciones y consultas de proveedores
-#es decir insert, update, delete y select
+# Maneja altas, bajas, modificaciones y consultas de proveedores.(insert, update, delete y select)
+# Solo para administradores.
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 
-#esto solo lo puede hacer un administrador
 
 def insertar_proveedor():
     pass
