@@ -73,26 +73,15 @@ def eliminar_insumos(conexion, id):
         cerrar_conexion(conexion)
         
 def listar_insumos(conexion):
-    cursor = conexion.cursor()
+    conexion = crear_conexion()
+    if not conexion:
+        return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
-        cursor.execute("SELECT id, nombre, direccion, telefono, correo FROM clientes")
-        clientes = cursor.fetchall()
-        
-        if not insumos:
-            print("No hay insumos registrados.")
-            return
-        
-        print("\n=== Lista de insumos ===")
-        for insumo in insumos:
-            id, nombre, direccion, telefono, correo = cliente
-            print(f"ID: {id}")
-            print(f"Nombre: {nombre}")
-            print(f"Dirección: {direccion}")
-            print(f"Teléfono: {telefono}")
-            print(f"Correo: {correo}")
-    
-    except Exception as e:
-        print("Error al listar insumos:", e)
-    
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM insumos")
+        resultados = cursor.fetchall()
+        return {"ok": True, "data": resultados}
+    except mysql.connector.Error as e:
+        return {"ok": False, "error": str(e)}
     finally:
-        cursor.close()
+        cerrar_conexion(conexion)
