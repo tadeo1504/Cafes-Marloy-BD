@@ -28,7 +28,7 @@ def editar_proveedor(id_proveedor, nombre, contacto):
         consulta = """
             UPDATE proveedores
             SET nombre = %s, contacto = %s
-            WHERE id_proveedor = %s
+            WHERE id = %s
         """
         cursor.execute(consulta, (nombre, contacto, id_proveedor))
         conexion.commit()
@@ -44,8 +44,8 @@ def eliminar_proveedor(id_proveedor):
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
-        consulta = "DELETE FROM proveedores WHERE id_proveedor = %s"
-        cursor.execute(consulta, (id_proveedor,))
+        consulta = "DELETE FROM proveedores WHERE id = %s"
+        cursor.execute(consulta, (id))
         conexion.commit()
         return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:
