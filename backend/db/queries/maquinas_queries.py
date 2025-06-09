@@ -4,7 +4,7 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_maquina(conexion, nombre, direccion, telefono, correo):
+def insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -13,10 +13,10 @@ def insertar_maquina(conexion, nombre, direccion, telefono, correo):
     try:
         cursor = conexion.cursor()
         consulta = """
-            INSERT INTO maquinas (nombre, direccion, telefono, correo)
+            INSERT INTO maquinas (modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
             VALUES (%s, %s, %s, %s)
         """
-        valores = (nombre, direccion, telefono, correo)
+        valores = (modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
         cursor.execute(consulta, valores)
         conexion.commit()
         print("✅ Maquina insertada exitosamente.")
@@ -25,7 +25,7 @@ def insertar_maquina(conexion, nombre, direccion, telefono, correo):
     finally:
         cerrar_conexion(conexion)
 
-def editar_maquina(conexion, nombre, direccion, telefono, correo, id_maquina):
+def editar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -34,10 +34,10 @@ def editar_maquina(conexion, nombre, direccion, telefono, correo, id_maquina):
         cursor = conexion.cursor()
         consulta = """
             UPDATE maquinas
-            SET nombre = %s, direccion = %s, telefono = %s, correo = %s
-            WHERE id_maquina = %s
+            SET modelo = %s, id_cliente = %s, ubicacion_cliente = %s, costo_alquiler_mensual = %s
+            WHERE id = %s
         """
-        valores = (nombre, direccion, telefono, correo, id_maquina)
+        valores = (modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
         cursor.execute(consulta, valores)
         conexion.commit()
         if cursor.rowcount > 0:
@@ -59,7 +59,7 @@ def eliminar_maquina(conexion, id):
         cursor = conexion.cursor()
         consulta = """
             DELETE maquinas
-            WHERE id_maquina = %s
+            WHERE id = %s
         """
         cursor.execute(consulta, id)
         conexion.commit()
