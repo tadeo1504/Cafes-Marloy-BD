@@ -1,8 +1,5 @@
-#ABM de proveedores
-# para manejar el alta, baja, modificacion y consulta de proveedores
-# es decir insert, update, delete y select
-# y luego importarlo en el controlador de proveedores
-# backend/db/queries/proveedores_queries.py
+# ABM de proveedores.(insert, update, delete, select)
+# Permite manejar el alta, baja, modificacion y consulta de proveedores y luego importarlo en el controlador de proveedores.
 
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
