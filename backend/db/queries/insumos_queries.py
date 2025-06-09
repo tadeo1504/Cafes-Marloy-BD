@@ -4,7 +4,7 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_insumos(conexion, nombre, direccion, telefono, correo):
+def insertar_insumos(conexion, descripcion, tipo, precio_unitario, id_proveedor):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -13,19 +13,19 @@ def insertar_insumos(conexion, nombre, direccion, telefono, correo):
     try:
         cursor = conexion.cursor()
         consulta = """
-            INSERT INTO insumos (nombre, direccion, telefono, correo)
+            INSERT INTO insumos (descripcion, tipo, precio_unitario, id_proveedor)
             VALUES (%s, %s, %s, %s)
         """
-        valores = (nombre, direccion, telefono, correo)
+        valores = (descripcion, tipo, precio_unitario, id_proveedor)
         cursor.execute(consulta, valores)
         conexion.commit()
-        print("✅ Cliente insertado exitosamente.")
+        print("✅ Insumo insertado exitosamente.")
     except mysql.connector.Error as e:
         print(f"❌ Error al insertar insumos: {e}")
     finally:
         cerrar_conexion(conexion)
 
-def editar_insumos(conexion, nombre, direccion, telefono, correo, id_cliente):
+def editar_insumos(conexion, descripcion, tipo, precio_unitario, id_proveedor):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -34,14 +34,14 @@ def editar_insumos(conexion, nombre, direccion, telefono, correo, id_cliente):
         cursor = conexion.cursor()
         consulta = """
             UPDATE insumos
-            SET nombre = %s, direccion = %s, telefono = %s, correo = %s
-            WHERE id_insumo = %s
+            SET descripcion = %s, tipo = %s, precio_unitario = %s, id_proveedor = %s
+            WHERE id = %s
         """
-        valores = (nombre, direccion, telefono, correo, id_cliente)
+        valores = (descripcion, tipo, precio_unitario, id_proveedor)
         cursor.execute(consulta, valores)
         conexion.commit()
         if cursor.rowcount > 0:
-            print("✅ Insumos editado exitosamente.")
+            print("✅ Insumo editado exitosamente.")
         else:
             print("📭 No se encontraron insumos con ese ID.")
     except mysql.connector.Error as e:
@@ -59,7 +59,7 @@ def eliminar_insumos(conexion, id):
         cursor = conexion.cursor()
         consulta = """
             DELETE insumos
-            WHERE id_insumo = %s
+            WHERE id = %s
         """
         cursor.execute(consulta, id)
         conexion.commit()
