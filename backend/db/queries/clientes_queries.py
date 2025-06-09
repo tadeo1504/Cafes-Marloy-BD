@@ -25,7 +25,7 @@ def insertar_cliente(conexion, nombre, direccion, telefono, correo):
     finally:
         cerrar_conexion(conexion)
 
-def editar_cliente(conexion, nombre, direccion, telefono, correo, id_cliente):
+def editar_cliente(conexion, nombre, direccion, telefono, correo, id):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -35,9 +35,9 @@ def editar_cliente(conexion, nombre, direccion, telefono, correo, id_cliente):
         consulta = """
             UPDATE clientes
             SET nombre = %s, direccion = %s, telefono = %s, correo = %s
-            WHERE id_cliente = %s
+            WHERE id = %s
         """
-        valores = (nombre, direccion, telefono, correo, id_cliente)
+        valores = (nombre, direccion, telefono, correo, id)
         cursor.execute(consulta, valores)
         conexion.commit()
         if cursor.rowcount > 0:
@@ -59,7 +59,7 @@ def eliminar_cliente(conexion, id):
         cursor = conexion.cursor()
         consulta = """
             DELETE clientes
-            WHERE id_cliente = %s
+            WHERE id = %s
         """
         cursor.execute(consulta, id)
         conexion.commit()
