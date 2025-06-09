@@ -1,20 +1,73 @@
-#adiministrar altas, bajas y modificaciones de los tecnicos
-#o sea insert, update, delete y select
+#maneja altas, bajas, modificaciones y consultas de clientes
+#es decir insert, update, delete y select
+# Solo para administradores.
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
+from backend.db.queries.tecnicos_queries import (
+    INSERTAR_TECNICO,
+    EDITAR_TECNICO,
+    ELIMINAR_TECNICO,
+    LISTAR_TECNICO
+)
 
-#esto solo lo puede hacer un administrador
 
-def insertar_tecnico():
-    pass
+def alta_tecnico():
+    print("=== Alta de tecnico ===")
+    nombre = input("Nombre: ")
+    direccion = input("Dirección: ")
+    telefono = input("Teléfono: ")
+    correo = input("Correo: ")
 
-def editar_tecnico():
-    pass
+    conexion = crear_conexion()
+    if conexion:
+        exito = insertar_tecnico(conexion, nombre, direccion, telefono, correo)
+        cerrar_conexion(conexion)
+        if exito:
+            print("Tecnico insertado correctamente.")
+        else:
+            print("No se pudo insertar el tecnico.")
+            
+def modificar_tecnico():
+    print("=== Modificación de Tecnico ===")
+    id_tecnico = input("ID del tecnico a modificar: ")
+    nombre = input("Nuevo Nombre: ")
+    direccion = input("Nueva Dirección: ")
+    telefono = input("Nuevo Teléfono: ")
+    correo = input("Nuevo Correo: ")
 
-def eliminar_tecnico():
-    pass
+    conexion = crear_conexion()
+    if conexion:
+        exito = editar_tecnico(conexion, id_tecnico, nombre, direccion, telefono, correo)
+        cerrar_conexion(conexion)
+        if exito:
+            print("Tecnico modificado correctamente.")
+        else:
+            print("No se pudo modificar el tecnico.")
+            
+def baja_tecnico():
+    print("=== Baja de tecnico ===")
+    id_tecnico = input("ID del tecnico a eliminar: ")
+
+    conexion = crear_conexion()
+    if conexion:
+        exito = eliminar_tecnico(conexion, id_tecnico)
+        cerrar_conexion(conexion)
+        if exito:
+            print("Tecnico eliminado correctamente.")
+        else:
+            print("No se pudo eliminar el tecnico.")
+            
 
 def listar_tecnicos():
-    pass
+    print("=== Lista de tecnicos ===")
+    conexion = crear_conexion()
+    if conexion:
+        tecnicos = obtener_todos_los_tecnicos(conexion)
+        cerrar_conexion(conexion)
 
+        if tecnicos:
+            for t in tecnicos:
+                print(f"ID: {c[0]} | Nombre: {c[1]} | Dirección: {c[2]} | Tel: {c[3]} | Correo: {c[4]}")
+        else:
+            print("No se encontraron tecnicos.")
