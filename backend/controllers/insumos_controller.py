@@ -18,9 +18,11 @@ def alta_insumo():
 
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_insumo(conexion, nombre, direccion, telefono, correo)
+        exito = INSERTAR_INSUMO(conexion, descripcion, tipo, precio_unitario, id_proveedor)
         cerrar_conexion(conexion)
         if exito:
             print("Insumo insertado correctamente.")
         else:
             print("No se pudo insertar el insumo.")
+    
+    
