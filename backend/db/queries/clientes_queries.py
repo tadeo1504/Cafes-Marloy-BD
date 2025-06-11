@@ -1,7 +1,5 @@
-#ABM de clientes.
-# para manejar el alta, baja, modificacion y consulta de clientes
-# es decir insert, update, delete y select
-# y luego importarlo en el controlador de clientes.
+# ABM de clientes.(insert, update, delete, select)
+# Permite manejar el alta, baja, modificacion y consulta de clientes y luego importarlo en el controlador de clientes.
 
 from backend.db.conexion import cerrar_conexion
 import mysql.connector
@@ -73,7 +71,9 @@ def eliminar_cliente(conexion, id):
         cerrar_conexion(conexion)
         
 def listar_clientes(conexion):
-    cursor = conexion.cursor()
+    conexion = crear_conexion()
+    if not conexion:
+        return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor.execute("SELECT * FROM clientes")
         clientes = cursor.fetchall()
@@ -88,6 +88,6 @@ def listar_clientes(conexion):
     except Exception as e:
         print("Error al listar clientes:", e)
     
-    finally:
-        cursor.close()
 
+    finally:
+        cerrar_conexion(conexion)
