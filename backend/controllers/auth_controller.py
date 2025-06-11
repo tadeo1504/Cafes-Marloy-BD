@@ -1,6 +1,6 @@
 #para checkear el login de un usuario
 import mysql.connector
-from backend.database.db import crear_conexion, cerrar_conexion
+from backend.db.conexion import crear_conexion, cerrar_conexion
 import hashlib
 
 def login_usuario(username, password):
@@ -16,7 +16,8 @@ def login_usuario(username, password):
             cursor.execute(query, (username, hashed_password))
             usuario = cursor.fetchone()
             if usuario:
-                return {'success': True, 'usuario': usuario}
+                token = hashlib.sha256((username + password).encode()).hexdigest()
+                return {'success': True, 'usuario': usuario, 'token': token}
             else:
                 return {'error': 'Usuario o contraseña incorrectos.'}
         except mysql.connector.Error as err:

@@ -4,10 +4,10 @@
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 from backend.db.queries.clientes_queries import (
-    INSERTAR_CLIENTE,
-    EDITAR_CLIENTE,
-    ELIMINAR_CLIENTE,
-    LISTAR_CLIENTES
+    insertar_cliente,
+    editar_cliente,
+    eliminar_cliente,
+    listar_clientes
 )
 
 
@@ -23,13 +23,13 @@ def alta_cliente():
         exito = insertar_cliente(conexion, nombre, direccion, telefono, correo)
         cerrar_conexion(conexion)
         if exito:
-            print("Cliente insertado correctamente.")
+            print("✅ Cliente insertado correctamente.")
         else:
-            print("No se pudo insertar el cliente.")
-            
+            print("❌ No se pudo insertar el cliente.")
+
 def modificar_cliente():
     print("=== Modificación de Cliente ===")
-    id_cliente = input("ID del Cliente a modificar: ")
+    id = input("ID del Cliente a modificar: ")
     nombre = input("Nuevo Nombre: ")
     direccion = input("Nueva Dirección: ")
     telefono = input("Nuevo Teléfono: ")
@@ -37,32 +37,31 @@ def modificar_cliente():
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_cliente(conexion, id_cliente, nombre, direccion, telefono, correo)
+        exito = editar_cliente(conexion, nombre, direccion, telefono, correo, id)
         cerrar_conexion(conexion)
         if exito:
-            print("Cliente modificado correctamente.")
+            print("✅ Cliente modificado correctamente.")
         else:
-            print("No se pudo modificar el cliente.")
-            
+            print("❌ No se pudo modificar el cliente.")
+
 def baja_cliente():
     print("=== Baja de Cliente ===")
-    id_cliente = input("ID del Cliente a eliminar: ")
+    id = input("ID del Cliente a eliminar: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = eliminar_cliente(conexion, id_cliente)
+        exito = eliminar_cliente(conexion, id)
         cerrar_conexion(conexion)
         if exito:
-            print("Cliente eliminado correctamente.")
+            print("✅ Cliente eliminado correctamente.")
         else:
-            print("No se pudo eliminar el cliente.")
-            
+            print("❌ No se pudo eliminar el cliente.")
 
-def listar_clientes():
+def mostrar_clientes():
     print("=== Lista de Clientes ===")
     conexion = crear_conexion()
     if conexion:
-        clientes = obtener_todos_los_clientes(conexion)
+        clientes = listar_clientes(conexion)
         cerrar_conexion(conexion)
 
         if clientes:
