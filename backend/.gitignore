@@ -1,1 +1,5 @@
-backend\controllers\harcpdeas.py
+# Ignorar archivo .env
+.env
+
+# Ignorar archivo específico en una subcarpeta
+backend/controllers/harcpdeas.py
