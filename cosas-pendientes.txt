@@ -1,0 +1,8 @@
+1- arreglar delete
+2- permisos (login, admin y user)
+
+
+
+
+
+10 - main 

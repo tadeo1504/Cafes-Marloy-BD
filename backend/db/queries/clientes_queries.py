@@ -66,15 +66,16 @@ def eliminar_cliente(conexion, id):
         else:
             return False
     except mysql.connector.Error as e:
+        print("Error al eliminar cliente:", e)
         return False
     finally:
         cerrar_conexion(conexion)
         
-def listar_clientes(conexion):
-    conexion = crear_conexion()
+def mostrar_clientes(conexion):
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
+        cursor = conexion.cursor()
         cursor.execute("SELECT * FROM clientes")
         clientes = cursor.fetchall()
         

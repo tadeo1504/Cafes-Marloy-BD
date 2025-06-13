@@ -3,10 +3,10 @@
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 from backend.db.queries.insumos_queries import (
-    INSERTAR_INSUMO,
-    EDITAR_INSUMO,
-    ELIMINAR_INSUMO,
-    LISTAR_INSUMO
+    insertar_insumos,
+    editar_insumos,
+    eliminar_insumos,
+    listar_insumos
 )
 
 def alta_insumo():
@@ -14,11 +14,11 @@ def alta_insumo():
     descripcion = input("Descripción: ")
     tipo = input("Tipo: ")
     precio_unitario = input("Precio unitario: ")
-    id_proveedor = input("Id del Proveedor: ")
+    id = input("Id del Proveedor: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = INSERTAR_INSUMO(conexion, descripcion, tipo, precio_unitario, id_proveedor)
+        exito = insertar_insumo(conexion, descripcion, tipo, precio_unitario, id)
         cerrar_conexion(conexion)
         if exito:
             print("Insumo insertado correctamente.")
