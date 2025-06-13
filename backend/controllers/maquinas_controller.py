@@ -3,10 +3,10 @@
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 from backend.db.queries.maquinas_queries import (
-    INSERTAR_MAQUINA,
-    EDITAR_MAQUINA,
-    ELIMINAR_MAQUINA,
-    LISTAR_MAQUINAS
+    insertar_maquina,
+    editar_maquina,
+    eliminar_maquina,
+    listar_maquinas
 )
 
 
@@ -28,7 +28,7 @@ def alta_maquina():
             
 def modificar_maquina():
     print("=== Modificación de maquina ===")
-    id_maquina = input("ID de la maquina a modificar: ")
+    id = input("ID de la maquina a modificar: ")
     nombre = input("Nuevo Nombre: ")
     direccion = input("Nueva Dirección: ")
     telefono = input("Nuevo Teléfono: ")
@@ -36,7 +36,7 @@ def modificar_maquina():
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_maquina(conexion, id_cliente, nombre, direccion, telefono, correo)
+        exito = editar_maquina(conexion, id, nombre, direccion, telefono, correo)
         cerrar_conexion(conexion)
         if exito:
             print("Maquina modificado correctamente.")
@@ -57,15 +57,15 @@ def baja_maquina():
             print("No se pudo eliminar la maquina.")
             
 
-def listar_clientes():
-    print("=== Lista de Clientes ===")
+def listar_maquinas():
+    print("=== Lista de Maquinas ===")
     conexion = crear_conexion()
     if conexion:
-        clientes = obtener_todos_los_clientes(conexion)
+        maquinas = listar_maquinas(conexion)
         cerrar_conexion(conexion)
 
-        if clientes:
-            for c in clientes:
-                print(f"ID: {c[0]} | Nombre: {c[1]} | Dirección: {c[2]} | Tel: {c[3]} | Correo: {c[4]}")
+        if maquinas:
+            for m in maquinas:
+                print(f"ID: {m[0]} | Nombre: {m[1]} | Dirección: {m[2]} | Tel: {m[3]} | Correo: {m[4]}")
         else:
-            print("No se encontraron clientes.")
+            print("No se encontraron maquinas.")

@@ -1,6 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        navigate('/login');
+    }
+
   return (
     <div>
         <header className="bg-[#8d6e63] text-white p-4 flex justify-between items-center">
@@ -12,7 +19,7 @@ function Header() {
                 <button className="ml-4 bg-[#4e342e] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Profile
                 </button>
-                <button className="ml-4 bg-[#4e342e] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button onClick={handleLogout} className="ml-4 bg-[#4e342e] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Logout
                 </button>
             </div>

@@ -5,10 +5,10 @@
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 from backend.db.queries.tecnicos_queries import (
-    INSERTAR_TECNICO,
-    EDITAR_TECNICO,
-    ELIMINAR_TECNICO,
-    LISTAR_TECNICO
+    insertar_tecnico,
+    editar_tecnico,
+    eliminar_tecnico,
+    listar_tecnicos
 )
 
 
@@ -59,11 +59,11 @@ def baja_tecnico():
             print("No se pudo eliminar el tecnico.")
             
 
-def listar_tecnicos():
+def mostrar_tecnicos():
     print("=== Lista de tecnicos ===")
     conexion = crear_conexion()
     if conexion:
-        tecnicos = obtener_todos_los_tecnicos(conexion)
+        tecnicos = listar_tecnicos(conexion)
         cerrar_conexion(conexion)
 
         if tecnicos:

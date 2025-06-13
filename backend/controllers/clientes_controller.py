@@ -7,7 +7,7 @@ from backend.db.queries.clientes_queries import (
     insertar_cliente,
     editar_cliente,
     eliminar_cliente,
-    listar_clientes
+    mostrar_clientes
 )
 
 
@@ -57,11 +57,11 @@ def baja_cliente():
         else:
             print("❌ No se pudo eliminar el cliente.")
 
-def mostrar_clientes():
+def listar_clientes():
     print("=== Lista de Clientes ===")
     conexion = crear_conexion()
     if conexion:
-        clientes = listar_clientes(conexion)
+        clientes = mostrar_clientes(conexion)
         cerrar_conexion(conexion)
 
         if clientes:
