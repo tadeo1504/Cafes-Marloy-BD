@@ -53,7 +53,7 @@ def eliminar_proveedor(conexion, id):
     finally:
         cerrar_conexion(conexion)
 
-def listar_proveedores(conexion):
+def mostrar_proveedores(conexion):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
