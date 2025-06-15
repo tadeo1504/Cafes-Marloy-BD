@@ -11,37 +11,37 @@ from backend.controllers.clientes_controller import (
     alta_cliente,
     modificar_cliente,
     baja_cliente,
-    mostrar_clientes
+    listar_clientes
 )
  from backend.controllers.insumos_controller import (
     alta_insumo,
     modificar_insumo,
     baja_insumo,
-    mostrar_insumos
+    listar_insumos
  )
  from backend.controllers.proveedores_controller import (
     alta_proveedor,
     modificar_proveedor,
     baja_proveedor,
-    mostrar_proveedores
+    listar_proveedores
  )
 from backend.controllers.mantenimientos_controller import (
     alta_mantenimiento,
     modificar_mantenimiento,
     baja_mantenimiento,
-    mostrar_mantenimientos
+    listar_mantenimientos
 )
 from backend.controllers. maquinas_controller import (
     alta_maquina,
     modificar_maquina,
     baja_maquina,
-    # mostrar_maquinas
+    listar_maquinas
 )
 from backend.controllers.tecnicos_controller import (
     alta_tecnico,
     modificar_tecnico,
     baja_tecnico,
-    # mostrar_tecnicos
+    listar_tecnicos
 )
 
 
@@ -115,7 +115,7 @@ def menu_clientes():
         if   op == '1': alta_cliente()
         elif op == '2': modificar_cliente()
         elif op == '3': baja_cliente()
-        elif op == '4': mostrar_clientes()
+        elif op == '4': listar_clientes()
         elif op == '5': break
         else: print("Opción no válida.")
 
@@ -133,7 +133,7 @@ def menu_insumos():
         if   op == '1': alta_insumo()
         elif op == '2': modificar_insumo()
         elif op == '3': baja_insumo()
-        elif op == '4': mostrar_insumos()
+        elif op == '4': listar_insumos()
         elif op == '5': break
         else: print("Opción no válida.")
 
@@ -150,7 +150,7 @@ def menu_mantenimientos():
         if   op == '1': alta_mantenimiento()
         elif op == '2': modificar_mantenimiento()
         elif op == '3': baja_mantenimiento()
-        elif op == '4': mostrar_mantenimientos()
+        elif op == '4': listar_mantenimientos()
         elif op == '5': break
         else: print("Opción no válida.")
 
@@ -167,7 +167,7 @@ def menu_maquinas():
         if   op == '1': alta_maquina()
         elif op == '2': modificar_maquina()
         elif op == '3': baja_maquina()
-        elif op == '4': mostrar_maquinas()
+        elif op == '4': listar_maquinas()
         elif op == '5': break
         else: print("Opción no válida.")
 
@@ -184,7 +184,7 @@ def menu_proveedores():
         if   op == '1': alta_proveedor()
         elif op == '2': modificar_proveedor()
         elif op == '3': baja_proveedor()
-        elif op == '4': mostrar_proveedores()
+        elif op == '4': listar_proveedores()
         elif op == '5': break
         else: print("Opción no válida.")
 
@@ -201,11 +201,10 @@ def menu_tecnicos():
         if   op == '1': alta_tecnico()
         elif op == '2': modificar_tecnico()
         elif op == '3': baja_tecnico()
-        elif op == '4': mostrar_tecnicos()
+        elif op == '4': listar_tecnicos()
         elif op == '5': break
         else: print("Opción no válida.")
 
 
 if __name__ == "__main__":
     main()
-
