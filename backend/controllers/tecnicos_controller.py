@@ -7,7 +7,7 @@ from backend.db.queries.tecnicos_queries import (
     insertar_tecnico,
     editar_tecnico,
     eliminar_tecnico,
-    listar_tecnicos
+    mostrar_tecnicos
 )
 
 
@@ -57,11 +57,11 @@ def baja_tecnico():
             print("No se pudo eliminar el tecnico.")
             
 
-def mostrar_tecnicos():
+def listar_tecnicos():
     print("=== Lista de tecnicos ===")
     conexion = crear_conexion()
     if conexion:
-        tecnicos = listar_tecnicos(conexion)
+        tecnicos = mostrar_tecnicos(conexion)
         cerrar_conexion(conexion)
 
         if tecnicos:
