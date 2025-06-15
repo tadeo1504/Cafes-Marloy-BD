@@ -65,6 +65,6 @@ def listar_insumos():
 
         if insumos:
             for i in insumos:
-                print(f"ID: {i[0]} | Nombre: {i[1]} | Dirección: {c[2]} | Tel: {c[3]} | Correo: {c[4]}")
+                print(f"ID: {i[0]} | Descripción : {i[1]} | Tipo: {c[2]} | Precio Unitario: {c[3]} | Otro: {c[4]}")
         else:
             print("No se encontraron insumos.")
