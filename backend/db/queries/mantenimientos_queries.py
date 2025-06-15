@@ -25,7 +25,7 @@ def insertar_mantenimientos(conexion, id_maquina, ci_tecnico, tipo, fecha, obser
     finally:
         cerrar_conexion(conexion)
 
-def editar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observaciónes):
+def editar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observaciónes, id):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
