@@ -19,7 +19,7 @@ def insertar_proveedor(nombre, contacto):
     finally:
         cerrar_conexion(conexion)
 
-def editar_proveedor(id_proveedor, nombre, contacto):
+def editar_proveedor(id, nombre, contacto):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
@@ -38,7 +38,7 @@ def editar_proveedor(id_proveedor, nombre, contacto):
     finally:
         cerrar_conexion(conexion)
 
-def eliminar_proveedor(id_proveedor):
+def eliminar_proveedor(id):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
