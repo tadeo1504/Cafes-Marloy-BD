@@ -1,5 +1,4 @@
-#maneja altas, bajas, modificaciones y consultas de clientes
-#es decir insert, update, delete y select
+# Maneja altas, bajas, modificaciones y consultas de tecnicos. (insert, update, delete y select)
 # Solo para administradores.
 
 import mysql.connector
@@ -14,14 +13,14 @@ from backend.db.queries.tecnicos_queries import (
 
 def alta_tecnico():
     print("=== Alta de tecnico ===")
+    ci = input("Ci: ")
     nombre = input("Nombre: ")
-    direccion = input("Dirección: ")
+    apellido = input("Apellido: ")
     telefono = input("Teléfono: ")
-    correo = input("Correo: ")
-
+    
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_tecnico(conexion, nombre, direccion, telefono, correo)
+        exito = insertar_tecnico(ci, nombre, apellido, telefono)
         cerrar_conexion(conexion)
         if exito:
             print("Tecnico insertado correctamente.")
@@ -30,15 +29,14 @@ def alta_tecnico():
             
 def modificar_tecnico():
     print("=== Modificación de Tecnico ===")
-    id_tecnico = input("ID del tecnico a modificar: ")
+    ci = input("CI del tecnico a modificar: ")
     nombre = input("Nuevo Nombre: ")
-    direccion = input("Nueva Dirección: ")
+    apellido = input("Nuevo Apellido: ")
     telefono = input("Nuevo Teléfono: ")
-    correo = input("Nuevo Correo: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_tecnico(conexion, id_tecnico, nombre, direccion, telefono, correo)
+        exito = editar_tecnico(conexion, ci, nombre, apellido, telefono)
         cerrar_conexion(conexion)
         if exito:
             print("Tecnico modificado correctamente.")
@@ -47,11 +45,11 @@ def modificar_tecnico():
             
 def baja_tecnico():
     print("=== Baja de tecnico ===")
-    id_tecnico = input("ID del tecnico a eliminar: ")
+    ci = input("CI del tecnico a eliminar: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = eliminar_tecnico(conexion, id_tecnico)
+        exito = eliminar_tecnico(conexion, ci)
         cerrar_conexion(conexion)
         if exito:
             print("Tecnico eliminado correctamente.")
@@ -68,6 +66,6 @@ def mostrar_tecnicos():
 
         if tecnicos:
             for t in tecnicos:
-                print(f"ID: {c[0]} | Nombre: {c[1]} | Dirección: {c[2]} | Tel: {c[3]} | Correo: {c[4]}")
+                print(f"CI: {t[0]} | Nombre: {t[1]} | Apellido: {t[2]} | Tel: {t[3]}")
         else:
             print("No se encontraron tecnicos.")
