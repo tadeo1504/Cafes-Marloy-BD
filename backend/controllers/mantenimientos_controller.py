@@ -11,14 +11,15 @@ from backend.db.queries.mantenimientos_queries import (
 
 def alta_mantenimiento():
     print("=== Alta de Mantenimiento ===")
-    nombre = input("Nombre: ")
-    direccion = input("Dirección: ")
-    telefono = input("Teléfono: ")
-    correo = input("Correo: ")
+    id_maquina = input("ID Maquina: ")
+    ci_tecnico = input("CI Tecnico: ")
+    fecha = input("Fecha: ")
+    tipo = input("Tipo: ")
+    observaciones = input("Observaciones: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_mantenimientos(conexion, nombre, direccion, telefono, correo)
+        exito = insertar_mantenimientos(conexion, id_maquina, ci_tecnico, fecha, tipo, observaciones)
         cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento insertado correctamente.")
@@ -27,15 +28,16 @@ def alta_mantenimiento():
             
 def modificar_mantenimiento():
     print("=== Modificación de mantenimiento ===")
-    id_cliente = input("ID del mantenimiento a modificar: ")
-    nombre = input("Nuevo Nombre: ")
-    direccion = input("Nueva Dirección: ")
-    telefono = input("Nuevo Teléfono: ")
-    correo = input("Nuevo Correo: ")
+    id = input("ID del mantenimiento a modificar: ")
+    id_maquina = input("ID Maquina: ")
+    ci_tecnico = input("CI Tecnico: ")
+    fecha = input("Fecha: ")
+    tipo = input("Tipo: ")
+    observaciones = input("Observaciones: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_mantenimiento(conexion, id_cliente, nombre, direccion, telefono, correo)
+        exito = editar_mantenimiento(conexion, id, id_maquina, ci_tecnico, fecha, tipo, observaciones)
         cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento modificado correctamente.")
@@ -44,11 +46,11 @@ def modificar_mantenimiento():
 
 def baja_mantenimiento():
     print("=== Baja de mantenimiento ===")
-    id_mantenimiento = input("ID del mantenimiento a eliminar: ")
+    id = input("ID del mantenimiento a eliminar: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = eliminar_mantenimientos(conexion, id_mantenimiento)
+        exito = eliminar_mantenimientos(conexion, id)
         cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento eliminado correctamente.")
@@ -65,6 +67,6 @@ def listar_mantenimientos():
 
         if mantenimientos:
             for m in mantenimientos:
-                print(f"ID: {m[0]} | Nombre: {m[1]} | Dirección: {m[2]} | Tel: {m[3]} | Correo: {m[4]}")
+                print(f"ID: {m[0]} | ID Maquina: {m[1]} | CI Tecnico: {m[2]} | Fecha: {m[3]} | Tipo: {m[4]} | Observaciones: {m[5]}")
         else:
             print("❌ No se encontraron mantenimiento.")
