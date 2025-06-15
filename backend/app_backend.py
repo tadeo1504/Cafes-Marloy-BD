@@ -13,24 +13,24 @@ from backend.controllers.clientes_controller import (
     baja_cliente,
     mostrar_clientes
 )
-# from backend.controllers.insumos_controller import (
-#     alta_insumo,
-#     modificar_insumo,
-#     baja_insumo,
-#     mostrar_insumos
-# )
-# from backend.controllers.proveedores_controller import (
-#     alta_proveedor,
-#     modificar_proveedor,
-#     baja_proveedor,
-#     mostrar_proveedores
-# )
-# from backend.controllers.mantenimientos_controller import (
-#     alta_mantenimiento,
-#     modificar_mantenimiento,
-#     baja_mantenimiento,
-#     mostrar_mantenimientos
-# )
+ from backend.controllers.insumos_controller import (
+    alta_insumo,
+    modificar_insumo,
+    baja_insumo,
+    mostrar_insumos
+ )
+ from backend.controllers.proveedores_controller import (
+    alta_proveedor,
+    modificar_proveedor,
+    baja_proveedor,
+    mostrar_proveedores
+ )
+from backend.controllers.mantenimientos_controller import (
+    alta_mantenimiento,
+    modificar_mantenimiento,
+    baja_mantenimiento,
+    mostrar_mantenimientos
+)
 from backend.controllers. maquinas_controller import (
     alta_maquina,
     modificar_maquina,
@@ -60,11 +60,11 @@ def menu_principal():
         opcion = input("Seleccione una opción: ").strip()
 
         if   opcion == '1': menu_clientes()
-        # elif opcion == '2': menu_insumos()
-        # elif opcion == '3': menu_proveedores()
-        # elif opcion == '4': menu_mantenimientos()
-        # elif opcion == '5': menu_maquinas()
-        # elif opcion == '6': menu_tecnicos()
+        elif opcion == '2': menu_insumos()
+        elif opcion == '3': menu_proveedores()
+        elif opcion == '4': menu_mantenimientos()
+        elif opcion == '5': menu_maquinas()
+        elif opcion == '6': menu_tecnicos()
         elif opcion == '7':
             print("Cerrando sesión…\n")
             break
@@ -119,7 +119,92 @@ def menu_clientes():
         elif op == '5': break
         else: print("Opción no válida.")
 
-# TODO: menu_insumos(), menu_proveedores(), etc.
+
+def menu_insumos():
+    while True:
+        print("\n=== Menú de Insumos ===")
+        print("1. Alta")
+        print("2. Modificar")
+        print("3. Baja")
+        print("4. Listar")
+        print("5. Volver")
+
+        op = input("Opción: ").strip()
+        if   op == '1': alta_insumo()
+        elif op == '2': modificar_insumo()
+        elif op == '3': baja_insumo()
+        elif op == '4': mostrar_insumos()
+        elif op == '5': break
+        else: print("Opción no válida.")
+
+def menu_mantenimientos():
+    while True:
+        print("\n=== Menú de Mantenimientos ===")
+        print("1. Alta")
+        print("2. Modificar")
+        print("3. Baja")
+        print("4. Listar")
+        print("5. Volver")
+
+        op = input("Opción: ").strip()
+        if   op == '1': alta_mantenimiento()
+        elif op == '2': modificar_mantenimiento()
+        elif op == '3': baja_mantenimiento()
+        elif op == '4': mostrar_mantenimientos()
+        elif op == '5': break
+        else: print("Opción no válida.")
+
+def menu_maquinas():
+    while True:
+        print("\n=== Menú de Maquinas ===")
+        print("1. Alta")
+        print("2. Modificar")
+        print("3. Baja")
+        print("4. Listar")
+        print("5. Volver")
+
+        op = input("Opción: ").strip()
+        if   op == '1': alta_maquina()
+        elif op == '2': modificar_maquina()
+        elif op == '3': baja_maquina()
+        elif op == '4': mostrar_maquinas()
+        elif op == '5': break
+        else: print("Opción no válida.")
+
+def menu_proveedores():
+    while True:
+        print("\n=== Menú de Proveedores ===")
+        print("1. Alta")
+        print("2. Modificar")
+        print("3. Baja")
+        print("4. Listar")
+        print("5. Volver")
+
+        op = input("Opción: ").strip()
+        if   op == '1': alta_proveedor()
+        elif op == '2': modificar_proveedor()
+        elif op == '3': baja_proveedor()
+        elif op == '4': mostrar_proveedores()
+        elif op == '5': break
+        else: print("Opción no válida.")
+
+def menu_tecnicos():
+    while True:
+        print("\n=== Menú de Tecnicos ===")
+        print("1. Alta")
+        print("2. Modificar")
+        print("3. Baja")
+        print("4. Listar")
+        print("5. Volver")
+
+        op = input("Opción: ").strip()
+        if   op == '1': alta_tecnico()
+        elif op == '2': modificar_tecnico()
+        elif op == '3': baja_tecnico()
+        elif op == '4': mostrar_tecnicos()
+        elif op == '5': break
+        else: print("Opción no válida.")
+
 
 if __name__ == "__main__":
     main()
