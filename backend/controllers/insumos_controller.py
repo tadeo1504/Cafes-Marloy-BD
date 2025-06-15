@@ -21,9 +21,9 @@ def alta_insumo():
         exito = insertar_insumo(conexion, descripcion, tipo, precio_unitario, id)
         cerrar_conexion(conexion)
         if exito:
-            print("Insumo insertado correctamente.")
+            print("✅ Insumo insertado correctamente.")
         else:
-            print("No se pudo insertar el insumo.")
+            print("❌ No se pudo insertar el insumo.")
     
     
 def modificar_insumo():
@@ -65,6 +65,6 @@ def listar_insumos():
 
         if insumos:
             for i in insumos:
-                print(f"ID: {i[0]} | Descripción : {i[1]} | Tipo: {c[2]} | Precio Unitario: {c[3]} | Otro: {c[4]}")
+                print(f"ID: {i[0]} | Descripción : {i[1]} | Tipo: {c[2]} | Precio Unitario: {c[3]} | ID Proveedor: {c[4]}")
         else:
-            print("No se encontraron insumos.")
+            print("❌ No se encontraron insumos.")
