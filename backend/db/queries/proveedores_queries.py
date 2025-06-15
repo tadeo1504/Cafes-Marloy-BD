@@ -4,7 +4,7 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_proveedor(nombre, contacto):
+def insertar_proveedor(conexion, nombre, contacto):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
@@ -19,7 +19,7 @@ def insertar_proveedor(nombre, contacto):
     finally:
         cerrar_conexion(conexion)
 
-def editar_proveedor(id, nombre, contacto):
+def editar_proveedor(conexion, id, nombre, contacto):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
@@ -38,7 +38,7 @@ def editar_proveedor(id, nombre, contacto):
     finally:
         cerrar_conexion(conexion)
 
-def eliminar_proveedor(id):
+def eliminar_proveedor(conexion, id):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
@@ -53,7 +53,7 @@ def eliminar_proveedor(id):
     finally:
         cerrar_conexion(conexion)
 
-def listar_proveedores():
+def listar_proveedores(conexion):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
