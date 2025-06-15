@@ -1,5 +1,4 @@
-#maneja altas, bajas, modificaciones y consultas de clientes
-#es decir insert, update, delete y select
+#maneja altas, bajas, modificaciones y consultas de clientes. (insert, update, delete y select)
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
