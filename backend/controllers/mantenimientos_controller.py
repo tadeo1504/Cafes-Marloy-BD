@@ -23,7 +23,7 @@ def alta_mantenimiento():
         if exito:
             print("Mantenimiento insertado correctamente.")
         else:
-            print("No se pudo insertar el mantenimiento.")
+            print("❌ No se pudo insertar el mantenimiento.")
             
 def modificar_mantenimiento():
     print("=== Modificación de mantenimiento ===")
@@ -40,7 +40,7 @@ def modificar_mantenimiento():
         if exito:
             print("Mantenimiento modificado correctamente.")
         else:
-            print("No se pudo modificar el mantenimiento.")
+            print("❌ No se pudo modificar el mantenimiento.")
 
 def baja_mantenimiento():
     print("=== Baja de mantenimiento ===")
@@ -53,7 +53,7 @@ def baja_mantenimiento():
         if exito:
             print("Mantenimiento eliminado correctamente.")
         else:
-            print("No se pudo eliminar el mantenimiento.")
+            print("❌ No se pudo eliminar el mantenimiento.")
             
 
 def listar_mantenimientos():
@@ -67,4 +67,4 @@ def listar_mantenimientos():
             for m in mantenimientos:
                 print(f"ID: {m[0]} | Nombre: {m[1]} | Dirección: {m[2]} | Tel: {m[3]} | Correo: {m[4]}")
         else:
-            print("No se encontraron mantenimiento.")
+            print("❌ No se encontraron mantenimiento.")
