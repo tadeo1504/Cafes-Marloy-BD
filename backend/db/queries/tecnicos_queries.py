@@ -53,7 +53,7 @@ def eliminar_tecnico(conexion, ci):
     finally:
         cerrar_conexion(conexion)
 
-def listar_tecnicos(conexion):
+def mostrar_tecnicos(conexion):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
