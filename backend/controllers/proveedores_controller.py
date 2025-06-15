@@ -57,25 +57,14 @@ def baja_proveedor():
             print("❌ No se pudo eliminar el proveedor.")
 
 def listar_proveedores():
-    # Crear conexión
+    print("=== Lista de Proveedores ===")
     conexion = crear_conexion()
-    if not conexion:
-        print("❌ No se pudo establecer la conexión. Saliendo...")
-        return
-
-    try:
-        cursor = conexion.cursor()
-        consulta = "SELECT * FROM proveedores"
-        cursor.execute(consulta)
-        proveedores = cursor.fetchall()
-
-        if proveedores:
-            print("📋 Lista de Proveedores:")
-            for proveedor in proveedores:
-                print(proveedor)
-        else:
-            print("📭 No hay proveedores registrados.")
-    except mysql.connector.Error as e:
-        print(f"❌ Error al listar proveedores: {e}")
-    finally:
+    if conexion:
+        clientes = mostrar_proveedores(conexion)
         cerrar_conexion(conexion)
+
+        if clientes:
+            for p in proveedores:
+                print(f"ID: {p[0]} | Nombre: {p[1]} | Dirección: {p[2]} | Tel: {p[3]} | Correo: {p[4]}")
+        else:
+            print("No se encontraron proveedores.")
