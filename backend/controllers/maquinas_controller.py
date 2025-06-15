@@ -6,9 +6,8 @@ from backend.db.queries.maquinas_queries import (
     insertar_maquina,
     editar_maquina,
     eliminar_maquina,
-    listar_maquinas
+    mostrar_maquinas
 )
-
 
 def alta_maquina():
     print("=== Alta de maquina ===")
@@ -69,3 +68,5 @@ def listar_maquinas():
                 print(f"ID: {m[0]} | Nombre: {m[1]} | Dirección: {m[2]} | Tel: {m[3]} | Correo: {m[4]}")
         else:
             print("No se encontraron maquinas.")
+
+
