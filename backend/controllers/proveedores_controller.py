@@ -3,7 +3,12 @@
 
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
-
+from backend.db.queries.proveedores_queries import (
+    insertar_proveedores,
+    editar_proveedores,
+    eliminar_proveedores,
+    mostrar_proveedores
+)
 
 def insertar_proveedor():
     print("=== Insertar Proveedor ===")
