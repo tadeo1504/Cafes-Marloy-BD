@@ -25,7 +25,7 @@ def insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alqu
     finally:
         cerrar_conexion(conexion)
 
-def editar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual):
+def editar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual, id):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
