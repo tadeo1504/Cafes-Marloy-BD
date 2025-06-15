@@ -72,7 +72,7 @@ def eliminar_mantenimiento(conexion, id):
     finally:
         cerrar_conexion(conexion)
         
-def listar_mantenimiento(conexion):
+def mostrar_mantenimiento(conexion):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
