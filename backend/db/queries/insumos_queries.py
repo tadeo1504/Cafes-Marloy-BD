@@ -72,7 +72,7 @@ def eliminar_insumos(conexion, id):
     finally:
         cerrar_conexion(conexion)
         
-def listar_insumos(conexion):
+def mostrar_insumos(conexion):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
