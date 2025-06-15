@@ -65,7 +65,7 @@ def listar_maquinas():
 
         if maquinas:
             for m in maquinas:
-                print(f"ID: {m[0]} | Modelo: {m[1]} | Cliente: {m[2]} | Tel: {m[3]} | costo_alquiler_mensual: {m[4]}")
+                print(f"ID: {m[0]} | Modelo: {m[1]} | id_cliente: {m[2]} | ubicacion_cliente: {m[3]} | costo_alquiler_mensual: {m[4]}")
         else:
             print("No se encontraron maquinas.")
 
