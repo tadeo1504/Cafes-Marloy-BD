@@ -6,7 +6,7 @@ from backend.db.queries.insumos_queries import (
     insertar_insumos,
     editar_insumos,
     eliminar_insumos,
-    listar_insumos
+    mostrar_insumos
 )
 
 def alta_insumo():
