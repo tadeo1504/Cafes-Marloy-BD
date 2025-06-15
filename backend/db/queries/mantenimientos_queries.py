@@ -1,5 +1,5 @@
 # ABM de mantenimientos.(insert, update, delete, select)
-# Permite manejar el alta, baja, modificacion y consulta de clientes y luego importarlo en el controlador de clientes.
+# Permite manejar el alta, baja, modificacion y consulta de mantenimientos y luego importarlo en el controlador de mantenimientos.
 
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
