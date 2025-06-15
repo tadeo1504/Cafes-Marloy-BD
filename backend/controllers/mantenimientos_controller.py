@@ -57,11 +57,11 @@ def baja_mantenimiento():
             print("No se pudo eliminar el mantenimiento.")
             
 
-def mostrar_mantenimientos():
+def listar_mantenimientos():
     print("=== Lista de mantenimientos ===")
     conexion = crear_conexion()
     if conexion:
-        mantenimientos = listar_mantenimientos(conexion)
+        mantenimientos = mostrar_mantenimientos(conexion)
         cerrar_conexion(conexion)
 
         if mantenimientos:
