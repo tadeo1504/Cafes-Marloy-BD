@@ -6,9 +6,8 @@ from backend.db.queries.mantenimientos_queries import (
     insertar_mantenimientos,
     editar_mantenimiento,
     eliminar_mantenimientos,
-    listar_mantenimientos
+    mostrar_mantenimientos
 )
-
 
 def alta_mantenimiento():
     print("=== Alta de Mantenimiento ===")
