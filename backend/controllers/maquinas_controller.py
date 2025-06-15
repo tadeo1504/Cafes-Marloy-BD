@@ -61,7 +61,7 @@ def listar_maquinas():
     print("=== Lista de Maquinas ===")
     conexion = crear_conexion()
     if conexion:
-        maquinas = listar_maquinas(conexion)
+        maquinas = mostrar_maquinas(conexion)
         cerrar_conexion(conexion)
 
         if maquinas:
