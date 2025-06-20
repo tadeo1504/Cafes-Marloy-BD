@@ -13,13 +13,13 @@ from backend.controllers.clientes_controller import (
     baja_cliente,
     listar_clientes
 )
- from backend.controllers.insumos_controller import (
+from backend.controllers.insumos_controller import (
     alta_insumo,
     modificar_insumo,
     baja_insumo,
     listar_insumos
  )
- from backend.controllers.proveedores_controller import (
+from backend.controllers.proveedores_controller import (
     alta_proveedor,
     modificar_proveedor,
     baja_proveedor,

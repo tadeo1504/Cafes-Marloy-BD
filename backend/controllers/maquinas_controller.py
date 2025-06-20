@@ -11,14 +11,14 @@ from backend.db.queries.maquinas_queries import (
 
 def alta_maquina():
     print("=== Alta de maquina ===")
-    nombre = input("Nombre: ")
-    direccion = input("Dirección: ")
-    telefono = input("Teléfono: ")
-    correo = input("Correo: ")
+    modelo = input("Modelo: ")
+    id_cliente = input("id cliente: ")
+    ubicacion_cliente = input("ubicacion cliente: ")
+    costo_alquiler_mensual = input("costo mensual: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_maquina(conexion, nombre, direccion, telefono, correo)
+        exito = insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
         cerrar_conexion(conexion)
         if exito:
             print("Maquina insertado correctamente.")
@@ -28,23 +28,23 @@ def alta_maquina():
 def modificar_maquina():
     print("=== Modificación de maquina ===")
     id = input("ID de la maquina a modificar: ")
-    nombre = input("Nuevo Nombre: ")
-    direccion = input("Nueva Dirección: ")
-    telefono = input("Nuevo Teléfono: ")
-    correo = input("Nuevo Correo: ")
+    id_cliente = input("cambio id cliente: ")
+    modelo = input("Cambio del modelo: ")
+    ubicacion_cliente = input("Nueva ubicación cliente: ")
+    costo_alquiler_mensual = input("Nuevo costo mensual: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_maquina(conexion, id, nombre, direccion, telefono, correo)
+        exito = editar_maquina(conexion, id, id_cliente, modelo, ubicacion_cliente, costo_alquiler_mensual)
         cerrar_conexion(conexion)
         if exito:
-            print("Maquina modificado correctamente.")
+            print("✅ Maquina modificado correctamente.")
         else:
-            print("No se pudo modificar la maquina.")
-            
+            print("❌ No se pudo modificar la maquina.")
+
 def baja_maquina():
     print("=== Baja de maquina ===")
-    id_maquina = input("ID de la maquina a eliminar: ")
+    id_maquina = int(input("ID de la maquina a eliminar: ") )
 
     conexion = crear_conexion()
     if conexion:
@@ -60,13 +60,18 @@ def listar_maquinas():
     print("=== Lista de Maquinas ===")
     conexion = crear_conexion()
     if conexion:
-        maquinas = mostrar_maquinas(conexion)
+        resultado = mostrar_maquinas(conexion)
         cerrar_conexion(conexion)
 
-        if maquinas:
-            for m in maquinas:
-                print(f"ID: {m[0]} | Modelo: {m[1]} | id_cliente: {m[2]} | ubicacion_cliente: {m[3]} | costo_alquiler_mensual: {m[4]}")
+        if resultado["ok"]:
+            maquinas = resultado["data"]
+            if maquinas:
+                for m in maquinas:
+                    print(f"ID: {m['id']} | Modelo: {m['modelo']} | id_cliente: {m['id_cliente']} | ubicacion_cliente: {m['ubicacion_cliente']} | costo_alquiler_mensual: {m['costo_alquiler_mensual']}")
+            else:
+                print("No se encontraron maquinas.")
         else:
-            print("No se encontraron maquinas.")
+            print("❌ Error:", resultado["error"])
+
 
 

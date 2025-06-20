@@ -19,16 +19,16 @@ def insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alqu
         valores = (modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
         cursor.execute(consulta, valores)
         conexion.commit()
-        print("✅ Maquina insertada exitosamente.")
+        return True
     except mysql.connector.Error as e:
         print(f"❌ Error al insertar maquina: {e}")
     finally:
         cerrar_conexion(conexion)
 
-def editar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual, id):
+def editar_maquina(conexion, id, id_cliente, modelo=None, ubicacion_cliente=None, costo_alquiler_mensual=None):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
-        return
+        return False
     # Armar y ejecutar consulta
     try:
         cursor = conexion.cursor()
@@ -37,13 +37,13 @@ def editar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquil
             SET modelo = %s, id_cliente = %s, ubicacion_cliente = %s, costo_alquiler_mensual = %s
             WHERE id = %s
         """
-        valores = (modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
+        valores = (modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual, id)
         cursor.execute(consulta, valores)
         conexion.commit()
         if cursor.rowcount > 0:
-            print("✅ Maquina editada exitosamente.")
+            return True
         else:
-            print("📭 No se encontró una maquina con ese ID.")
+            return False
     except mysql.connector.Error as e:
         print(f"❌ Error al editar maquina: {e}")
     finally:
@@ -58,10 +58,10 @@ def eliminar_maquina(conexion, id):
     try:
         cursor = conexion.cursor()
         consulta = """
-            DELETE maquinas
+            DELETE FROM maquinas
             WHERE id = %s
         """
-        cursor.execute(consulta, id)
+        cursor.execute(consulta, (id,))  # <- fijate la coma
         conexion.commit()
         if cursor.rowcount > 0:
             print("✅ Maquina eliminada exitosamente.")
@@ -73,7 +73,6 @@ def eliminar_maquina(conexion, id):
         cerrar_conexion(conexion)
         
 def mostrar_maquinas(conexion):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -83,5 +82,4 @@ def mostrar_maquinas(conexion):
         return {"ok": True, "data": resultados}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+

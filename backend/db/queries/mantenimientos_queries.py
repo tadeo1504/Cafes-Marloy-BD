@@ -4,7 +4,7 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_mantenimientos(conexion, id_maquina, ci_tecnico, tipo, fecha, observaciónes):
+def insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observaciónes):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -72,7 +72,7 @@ def eliminar_mantenimiento(conexion, id):
     finally:
         cerrar_conexion(conexion)
         
-def mostrar_mantenimiento(conexion):
+def mostrar_mantenimientos(conexion):
     conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
