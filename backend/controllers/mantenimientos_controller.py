@@ -3,9 +3,9 @@
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 from backend.db.queries.mantenimientos_queries import (
-    insertar_mantenimientos,
+    insertar_mantenimiento,
     editar_mantenimiento,
-    eliminar_mantenimientos,
+    eliminar_mantenimiento,
     mostrar_mantenimientos
 )
 
@@ -19,7 +19,7 @@ def alta_mantenimiento():
 
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_mantenimientos(conexion, id_maquina, ci_tecnico, fecha, tipo, observaciones)
+        exito = insertar_mantenimiento(conexion, id_maquina, ci_tecnico, fecha, tipo, observaciones)
         cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento insertado correctamente.")
@@ -50,7 +50,7 @@ def baja_mantenimiento():
 
     conexion = crear_conexion()
     if conexion:
-        exito = eliminar_mantenimientos(conexion, id)
+        exito = eliminar_mantenimiento(conexion, id)
         cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento eliminado correctamente.")

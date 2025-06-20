@@ -10,7 +10,7 @@ def insertar_tecnico(conexion, ci, nombre, apellido, telefono):
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
-        consulta = INSERT INTO tecnicos (ci, nombre, apellido, telefono) VALUES (%s, %s, %s, %s)
+        consulta = '''INSERT INTO tecnicos (ci, nombre, apellido, telefono) VALUES (%s, %s, %s, %s)'''
         cursor.execute(consulta, (ci, nombre, apellido, telefono))
         conexion.commit()
         return {"ok": True}

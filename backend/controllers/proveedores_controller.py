@@ -4,13 +4,13 @@
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 from backend.db.queries.proveedores_queries import (
-    insertar_proveedores,
-    editar_proveedores,
-    eliminar_proveedores,
+    insertar_proveedor,
+    editar_proveedor,
+    eliminar_proveedor,
     mostrar_proveedores
 )
 
-def insertar_proveedor():
+def alta_proveedor():
     print("=== Insertar Proveedor ===")
     nombre = input("Nombre: ")
     direccion = input("Dirección: ")
@@ -36,7 +36,7 @@ def modificar_proveedor():
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_cliente(conexion, nombre, direccion, telefono, correo, id)
+        exito = editar_proveedor(conexion, nombre, direccion, telefono, correo, id)
         cerrar_conexion(conexion)
         if exito:
             print("✅ Cliente modificado correctamente.")
@@ -49,7 +49,7 @@ def baja_proveedor():
 
     conexion = crear_conexion()
     if conexion:
-        exito = eliminar_cliente(conexion, id)
+        exito = eliminar_proveedor(conexion, id)
         cerrar_conexion(conexion)
         if exito:
             print("✅ Proveedor eliminado correctamente.")
