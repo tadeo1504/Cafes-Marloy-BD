@@ -44,7 +44,7 @@ def modificar_maquina():
 
 def baja_maquina():
     print("=== Baja de maquina ===")
-    id_maquina = int(input("ID de la maquina a eliminar: ") )
+    id = int(input("ID de la maquina a eliminar: ") )
 
     conexion = crear_conexion()
     if conexion:
