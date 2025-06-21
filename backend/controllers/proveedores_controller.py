@@ -36,7 +36,7 @@ def modificar_proveedor():
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_proveedor(conexion, nombre, direccion, telefono, correo, id)
+        exito = editar_proveedor(conexion, id, nombre, direccion, telefono, correo)
         cerrar_conexion(conexion)
         if exito:
             print("✅ Cliente modificado correctamente.")
@@ -65,6 +65,6 @@ def listar_proveedores():
 
         if clientes:
             for p in proveedores:
-                print(f"ID: {p[0]} | Nombre: {p[1]} | Dirección: {p[2]} | Tel: {p[3]} | Correo: {p[4]}")
+                print(f"ID: {p[id]} | Nombre: {p[nombre]} | Dirección: {p[direccion]} | Tel: {p[telefono]} | Correo: {p[correo]}")
         else:
             print("No se encontraron proveedores.")
