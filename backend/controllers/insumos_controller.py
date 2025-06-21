@@ -14,7 +14,7 @@ def alta_insumo():
     descripcion = input("Descripción: ")
     tipo = input("Tipo: ")
     precio_unitario = input("Precio unitario: ")
-    id = input("Id del Proveedor: ")
+    id_proveedor = input("Id del Proveedor: ")
 
     conexion = crear_conexion()
     if conexion:
@@ -29,14 +29,14 @@ def alta_insumo():
 def modificar_insumo():
     print("=== Modificación de Insumo ===")
     id = input("ID del Insumo a modificar: ")
-    nombre = input("Nuevo Nombre: ")
-    direccion = input("Nueva Dirección: ")
-    telefono = input("Nuevo Teléfono: ")
-    correo = input("Nuevo Correo: ")
+    descripcion = input("Descripción: ")
+    tipo = input("Tipo: ")
+    precio_unitario = input("Precio unitario: ")
+    id_proveedor = input("Id del Proveedor: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_insumo(conexion, nombre, direccion, telefono, correo, id)
+        exito = editar_insumo(conexion, id, descripcion, tipo, precio_unitario, id_proveedor)
         cerrar_conexion(conexion)
         if exito:
             print("✅ Insumo modificado correctamente.")
@@ -46,7 +46,6 @@ def modificar_insumo():
 def baja_insumo():
     print("=== Baja de Insumo ===")
     id = input("ID del Insumo a eliminar: ")
-
     conexion = crear_conexion()
     if conexion:
         exito = eliminar_insumo(conexion, id)
@@ -65,6 +64,6 @@ def listar_insumos():
 
         if insumos:
             for i in insumos:
-                print(f"ID: {i[0]} | Descripción : {i[1]} | Tipo: {c[2]} | Precio Unitario: {c[3]} | ID Proveedor: {c[4]}")
+                print(f"ID: {i[id]} | Descripción : {i[descripcion]} | Tipo: {c[tipo]} | Precio Unitario: {c[precio_unitario]} | ID Proveedor: {c[id_proveedor]}")
         else:
             print("❌ No se encontraron insumos.")
