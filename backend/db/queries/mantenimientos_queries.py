@@ -19,7 +19,7 @@ def insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observ
         valores = (id_maquina, ci_tecnico, tipo, fecha, observaciónes)
         cursor.execute(consulta, valores)
         conexion.commit()
-        print("✅ Mantenimiento insertado exitosamente.")
+        return True
     except mysql.connector.Error as e:
         print(f"❌ Error al insertar mantenimiento: {e}")
     finally:
