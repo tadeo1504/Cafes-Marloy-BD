@@ -19,7 +19,7 @@ def insertar_insumos(conexion, descripcion, tipo, precio_unitario, id_proveedor)
         valores = (descripcion, tipo, precio_unitario, id_proveedor)
         cursor.execute(consulta, valores)
         conexion.commit()
-        print("✅ Insumo insertado exitosamente.")
+        return True
     except mysql.connector.Error as e:
         print(f"❌ Error al insertar insumos: {e}")
     finally:
