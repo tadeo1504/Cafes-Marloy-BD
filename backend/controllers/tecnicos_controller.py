@@ -66,6 +66,6 @@ def listar_tecnicos():
 
         if tecnicos:
             for t in tecnicos:
-                print(f"CI: {t[0]} | Nombre: {t[1]} | Apellido: {t[2]} | Tel: {t[3]}")
+                print(f"CI: {t[ci]} | Nombre: {t[nombre]} | Apellido: {t[apellido]} | Tel: {t[telefono]}")
         else:
             print("No se encontraron tecnicos.")
