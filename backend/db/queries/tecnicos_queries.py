@@ -5,7 +5,6 @@ from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_tecnico(conexion, ci, nombre, apellido, telefono):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -20,7 +19,6 @@ def insertar_tecnico(conexion, ci, nombre, apellido, telefono):
         cerrar_conexion(conexion)
 
 def editar_tecnico(conexion, ci, nombre, apellido, telefono):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -39,7 +37,6 @@ def editar_tecnico(conexion, ci, nombre, apellido, telefono):
         cerrar_conexion(conexion)
 
 def eliminar_tecnico(conexion, ci):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -54,7 +51,6 @@ def eliminar_tecnico(conexion, ci):
         cerrar_conexion(conexion)
 
 def mostrar_tecnicos(conexion):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:

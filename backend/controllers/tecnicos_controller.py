@@ -20,7 +20,7 @@ def alta_tecnico():
     
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_tecnico(ci, nombre, apellido, telefono)
+        exito = insertar_tecnico(conexion, ci, nombre, apellido, telefono)
         cerrar_conexion(conexion)
         if exito:
             print("Tecnico insertado correctamente.")
@@ -66,6 +66,6 @@ def listar_tecnicos():
 
         if tecnicos:
             for t in tecnicos:
-                print(f"CI: {t[ci]} | Nombre: {t[nombre]} | Apellido: {t[apellido]} | Tel: {t[telefono]}")
+                print(f"CI: {t['ci']} | Nombre: {t['nombre']} | Apellido: {t['apellido']} | Tel: {t['telefono']}")
         else:
             print("No se encontraron tecnicos.")

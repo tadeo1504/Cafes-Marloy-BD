@@ -4,7 +4,7 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_insumos(conexion, descripcion, tipo, precio_unitario, id_proveedor):
+def insertar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -25,7 +25,7 @@ def insertar_insumos(conexion, descripcion, tipo, precio_unitario, id_proveedor)
     finally:
         cerrar_conexion(conexion)
 
-def editar_insumos(conexion, descripcion, tipo, precio_unitario, id_proveedor):
+def editar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -50,7 +50,7 @@ def editar_insumos(conexion, descripcion, tipo, precio_unitario, id_proveedor):
         cerrar_conexion(conexion)
         
 
-def eliminar_insumos(conexion, id):
+def eliminar_insumo(conexion, id):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return

@@ -3,9 +3,9 @@
 import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 from backend.db.queries.insumos_queries import (
-    insertar_insumos,
-    editar_insumos,
-    eliminar_insumos,
+    insertar_insumo,
+    editar_insumo,
+    eliminar_insumo,
     mostrar_insumos
 )
 

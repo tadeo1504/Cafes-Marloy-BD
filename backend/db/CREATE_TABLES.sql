@@ -1,4 +1,11 @@
-use `obligatorio-bd`;
+import os
+from dotenv import load_dotenv
+
+db = os.getenv("DB_NAME")
+if not db:
+    raise ValueError("DB_NAME environment variable is not set")
+
+use db; 
 
 CREATE TABLE login (
     correo VARCHAR(100) PRIMARY KEY,

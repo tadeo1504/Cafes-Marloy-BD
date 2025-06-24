@@ -1,5 +1,6 @@
 #aca estara el main que se podria ejecutar si no hubiese un servidor web
 #hara todo por consola
+# python -m backend.app_backend
 
 from getpass import getpass  # para ocultar la contraseña en consola
 import sys
@@ -77,7 +78,7 @@ def flujo_login():
     while True:
         print("\n=== Inicio de Sesión ===")
         correo = input("Usuario: ").strip()
-        contrasena = input("Contraseña: ")
+        contrasena = getpass("Contraseña: ")
 
         resultado = login_usuario(correo, contrasena)
 
@@ -91,14 +92,45 @@ def flujo_login():
                 print("Saliendo del sistema.")
                 exit()
 
+def flujo_registro():
+    print("\n=== Registro de Usuario ===")
+    correo = input("Correo: ").strip()
+    contrasena = getpass("Contraseña: ")
+    repetir = getpass("Repetir contraseña: ")
+
+    if contrasena != repetir:
+        print("❌ Las contraseñas no coinciden.")
+        return
+
+    resultado = registrar_usuario(correo, contrasena) 
+
+    if resultado.get("success"):
+        print("✅ Usuario registrado exitosamente.")
+    else:
+        print(f"❌ {resultado.get('error', 'Error al registrar el usuario.')}")
+
 
 def main():
     print("=== Sistema de Gestión de Cafés Marloy ===")
     
-    usuario_logueado = flujo_login()  # esto te asegura que no se entra sin estar logueado
+    while True:
+        print("\n1. Iniciar sesión")
+        print("2. Registrarse")
+        print("3. Salir")
 
-    # si querés podés usar el usuario_logueado para mostrar nombre, rol, etc.
-    menu_principal()  # o lo que sea que venga después del login
+        op = input("Seleccione una opción: ").strip()
+
+        if op == '1':
+            usuario_logueado = flujo_login()
+            menu_principal()
+            break
+        elif op == '2':
+            flujo_registro()
+        elif op == '3':
+            print("Hasta luego.")
+            exit()
+        else:
+            print("Opción no válida.")
 
 
 # ---- Sub-menús (un ejemplo, los otros siguen el mismo patrón) ----

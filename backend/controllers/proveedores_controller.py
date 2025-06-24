@@ -60,11 +60,11 @@ def listar_proveedores():
     print("=== Lista de Proveedores ===")
     conexion = crear_conexion()
     if conexion:
-        clientes = mostrar_proveedores(conexion)
+        proveedores = mostrar_proveedores(conexion)
         cerrar_conexion(conexion)
 
-        if clientes:
+        if proveedores:
             for p in proveedores:
-                print(f"ID: {p[id]} | Nombre: {p[nombre]} | Dirección: {p[direccion]} | Tel: {p[telefono]} | Correo: {p[correo]}")
+                print(f"ID: {p['id']} | Nombre: {p['nombre']} | Dirección: {p['direccion']} | Tel: {p['telefono']} | Correo: {p['correo']}")
         else:
             print("No se encontraron proveedores.")
