@@ -5,7 +5,6 @@ from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_proveedor(conexion, nombre, contacto):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -20,7 +19,6 @@ def insertar_proveedor(conexion, nombre, contacto):
         cerrar_conexion(conexion)
 
 def editar_proveedor(conexion, id, nombre, contacto):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -30,7 +28,7 @@ def editar_proveedor(conexion, id, nombre, contacto):
             SET nombre = %s, contacto = %s
             WHERE id = %s
         """
-        cursor.execute(consulta, (nombre, contacto, id_proveedor))
+        cursor.execute(consulta, (nombre, contacto, id))
         conexion.commit()
         return {"ok": True, "updated": cursor.rowcount}
     except mysql.connector.Error as e:
@@ -39,7 +37,6 @@ def editar_proveedor(conexion, id, nombre, contacto):
         cerrar_conexion(conexion)
 
 def eliminar_proveedor(conexion, id):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -54,7 +51,6 @@ def eliminar_proveedor(conexion, id):
         cerrar_conexion(conexion)
 
 def mostrar_proveedores(conexion):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:

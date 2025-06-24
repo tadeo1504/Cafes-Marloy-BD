@@ -67,6 +67,6 @@ def listar_mantenimientos():
 
         if mantenimientos:
             for m in mantenimientos:
-                print(f"ID: {m[id]} | ID Maquina: {m[id_maquina]} | CI Tecnico: {m[ci_tecnico]} | Fecha: {m[fecha]} | Tipo: {m[tipo]} | Observaciones: {m[observaciones]}")
+                print(f"ID: {m['id']} | ID Maquina: {m['id_maquina']} | CI Tecnico: {m['ci_tecnico']} | Fecha: {m['fecha']} | Tipo: {m['tipo']} | Observaciones: {m['observaciones']}")
         else:
             print("❌ No se encontraron mantenimiento.")

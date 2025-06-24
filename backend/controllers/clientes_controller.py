@@ -65,7 +65,7 @@ def listar_clientes():
 
         if clientes:
             for c in clientes:
-                print(f"ID: {c[id]} | Nombre: {c[nombre]} | Dirección: {c[direccion]} | Tel: {c[telefono]} | Correo: {c[correo]}")
+                print(f"ID: {c['id']} | Nombre: {c['nombre']} | Dirección: {c['direccion']} | Tel: {c['telefono']} | Correo: {c['correo']}")
         else:
             print("❌ No se encontraron clientes.")
 
