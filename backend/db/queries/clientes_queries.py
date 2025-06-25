@@ -75,7 +75,7 @@ def mostrar_clientes(conexion):
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
-        cursor = conexion.cursor()
+        cursor = conexion.cursor(dictionary=True)
         cursor.execute("SELECT * FROM clientes")
         clientes = cursor.fetchall()
         

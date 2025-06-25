@@ -21,7 +21,7 @@ function Login() {
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
-            navigate('/home') // Redirect to home if token exists
+            navigate('/login') // Redirect to home if token exists
         }
     }, [navigate])
 
@@ -37,7 +37,7 @@ function Login() {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault()
-                        axios.post('http://localhost:8000/api/register', { username, password })
+                        axios.post('http://localhost:500/api/usuarios/registro', { username, password })
                             .then(response => {
                                 localStorage.setItem('token', response.data.token)
                                 navigate('/login')
