@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+//import url_backend from .env
 
+import { url_backend } from '../env' // Assuming you have a .env file with the backend URL
 
 function Card() {
     // This component will be used to display each category card
@@ -16,7 +18,7 @@ function Card() {
         // Fetch categories from the backend
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/categories')
+                const response = await axios.get(`${url_backend}/categories`) // Adjust the URL as needed
                 setCategories(response.data)
             } catch (error) {
                 console.error('Error fetching categories:', error)

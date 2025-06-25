@@ -3,27 +3,53 @@ import mysql.connector
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import hashlib
 
+import jwt
+import datetime
+from backend.db.conexion import crear_conexion, cerrar_conexion
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+
 def login_usuario(correo, contrasena):
     conexion = crear_conexion()
-    if conexion is None:
-        return {'error': 'No se pudo conectar a la base de datos.'}
-    else:
-        try:
-            #dictionary true para que el cursor devuelva un diccionario
-            cursor = conexion.cursor(dictionary=True)
-            hashed_contrasena = hashlib.sha256(contrasena.encode()).hexdigest()
-            query = 'SELECT * FROM login WHERE correo = %s AND contrasena = %s'
-            cursor.execute(query, (correo, hashed_contrasena))
-            usuario = cursor.fetchone()
-            if usuario:
-                token = hashlib.sha256((correo + contrasena).encode()).hexdigest()
-                return {'success': True, 'usuario': usuario, 'token': token}
-            else:
-                return {'error': 'Usuario o contraseña incorrectos.'}
-        except mysql.connector.Error as err:
-            return {'error': f'Error al consultar la base de datos: {err}'}
-        finally:
-            cerrar_conexion(conexion)
+    if not conexion:
+        return {"success": False, "error": "No se pudo conectar a la base de datos"}
+
+    try:
+        # Hash de la contraseña
+        hashed_contrasena = hashlib.sha256(contrasena.encode()).hexdigest()
+
+        # Verificar las credenciales
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM login WHERE correo = %s AND contrasena = %s", (correo, hashed_contrasena))
+        usuario = cursor.fetchone()
+
+        if usuario:
+            payload = {
+                "correo": correo,
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=3)
+            }
+
+            token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+
+            return {
+                "success": True,
+                "usuario": {
+                    "correo": usuario["correo"]
+                },
+                "token": token
+            }
+
+        return {"success": False, "error": "Credenciales incorrectas"}
+
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+    finally:
+        cerrar_conexion(conexion)
+
 
 def registrar_usuario(correo, contrasena):
     conexion = crear_conexion()
