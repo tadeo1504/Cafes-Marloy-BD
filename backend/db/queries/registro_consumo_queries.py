@@ -1,6 +1,6 @@
 #registro consumo
 
-from db.conexion import crear_conexion, cerrar_conexion
+from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_registro_consumo(conexion, id_maquina, id_insumo, fecha, cantidad_usada):
