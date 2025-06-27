@@ -1,8 +1,21 @@
-1- arreglar delete
-2- permisos (login, admin y user)
+ Agregar sección "Registro de Consumos" en menu_principal.
 
+ Implementar submenú de registro_consumo con: alta, modificar, baja y listar.
 
+ Agregar sección "Reportes" en menu_principal.
 
+ Crear menu_reportes() con subopciones:
 
+ Total mensual a cobrar por cliente (alquiler + insumos).
 
-10 - main 
+ Insumos más consumidos y sus costos.
+
+ Técnicos con más mantenimientos.
+
+ Clientes con más máquinas instaladas.
+
+ Crear archivo reportes_controller.py con lógica de los reportes.
+
+ Validar en alta/modificación de máquinas que no se asignen a más de un cliente a la vez.
+
+ Validar que un técnico no tenga mantenimientos simultáneos (misma fecha y hora).
