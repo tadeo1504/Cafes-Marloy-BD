@@ -59,11 +59,15 @@ def listar_insumos():
     print("=== Lista de Insumos ===")
     conexion = crear_conexion()
     if conexion:
-        clientes = mostrar_insumos(conexion)
+        insumos = mostrar_insumos(conexion)
         cerrar_conexion(conexion)
-
+        if insumos.get("ok"):
+            insumos = insumos.get("data")
+        else:
+            print(f"❌ Error al obtener insumos: {insumos.get('error')}")
+            return
         if insumos:
             for i in insumos:
-                print(f"ID: {i[id]} | Descripción : {i[descripcion]} | Tipo: {c[tipo]} | Precio Unitario: {c[precio_unitario]} | ID Proveedor: {c[id_proveedor]}")
+                print(f"ID: {i['id']} | Descripción : {i['descripcion']} | Tipo: {i['tipo']} | Precio Unitario: {i['precio_unitario']} | ID Proveedor: {i['id_proveedor']}")
         else:
             print("❌ No se encontraron insumos.")
