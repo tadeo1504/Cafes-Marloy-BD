@@ -29,6 +29,7 @@ def login_usuario(correo, contrasena):
         if usuario:
             payload = {
                 "correo": correo,
+                "es_administrador": usuario["es_administrador"],
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=3)
             }
 
@@ -37,10 +38,12 @@ def login_usuario(correo, contrasena):
             return {
                 "success": True,
                 "usuario": {
-                    "correo": usuario["correo"]
+                    "correo": usuario["correo"],
+                    "es_administrador": bool(usuario["es_administrador"])
                 },
                 "token": token
             }
+
 
         return {"success": False, "error": "Credenciales incorrectas"}
 

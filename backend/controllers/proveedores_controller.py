@@ -13,13 +13,11 @@ from backend.db.queries.proveedores_queries import (
 def alta_proveedor():
     print("=== Insertar Proveedor ===")
     nombre = input("Nombre: ")
-    direccion = input("Dirección: ")
-    telefono = input("Teléfono: ")
-    correo = input("Correo: ")
+    contacto = input("Número de Contacto: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_proveedor(conexion, nombre, direccion, telefono, correo)
+        exito = insertar_proveedor(conexion, nombre, contacto)
         cerrar_conexion(conexion)
         if exito:
             print("✅ Proveedor insertado correctamente.")
@@ -30,18 +28,16 @@ def modificar_proveedor():
     print("=== Modificación de Proveedor ===")
     id = input("ID del Proveedor a modificar: ")
     nombre = input("Nuevo Nombre: ")
-    direccion = input("Nueva Dirección: ")
-    telefono = input("Nuevo Teléfono: ")
-    correo = input("Nuevo Correo: ")
+    contacto = input("Nuevo Número de Contacto: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_proveedor(conexion, id, nombre, direccion, telefono, correo)
+        exito = editar_proveedor(conexion, id, nombre, contacto)
         cerrar_conexion(conexion)
         if exito:
-            print("✅ Cliente modificado correctamente.")
+            print("✅ Proveedor modificado correctamente.")
         else:
-            print("❌ No se pudo modificar el cliente.")
+            print("❌ No se pudo modificar el proveedor .")
 
 def baja_proveedor():
     print("=== Baja de Proveedor ===")
@@ -65,6 +61,6 @@ def listar_proveedores():
 
         if proveedores:
             for p in proveedores:
-                print(f"ID: {p['id']} | Nombre: {p['nombre']} | Dirección: {p['direccion']} | Tel: {p['telefono']} | Correo: {p['correo']}")
+                print(f"ID: {p['id']} | Nombre: {p['nombre']} | Contacto: {p['contacto']} ")
         else:
             print("No se encontraron proveedores.")

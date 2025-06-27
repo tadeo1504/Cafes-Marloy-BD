@@ -44,29 +44,39 @@ from backend.controllers.tecnicos_controller import (
     baja_tecnico,
     listar_tecnicos
 )
+from backend.controllers.registro_consumo_controller import (
+    alta_registro_consumo,
+    modificar_registro_consumo,
+    baja_registro_consumo,
+    listar_registros_consumo
+)
 
 
-def menu_principal():
+def menu_principal(usuario):
     """Menú con los distintos ABM. Asume que el usuario YA está logueado."""
     while True:
         print("\n=== Menú Principal ===")
         print("1. Clientes")
         print("2. Insumos")
-        print("3. Proveedores")
-        print("4. Mantenimientos")
-        print("5. Máquinas")
-        print("6. Técnicos")
-        print("7. Cerrar sesión")
+        print("3. Mantenimientos")
+        if usuario.get('es_administrador'):
+            print("4. Proveedores")
+            print("5. Máquinas")
+            print("6. Técnicos")
+            print("7. Registros de Consumo")
+
+        print("0. Cerrar sesión")
 
         opcion = input("Seleccione una opción: ").strip()
 
         if   opcion == '1': menu_clientes()
         elif opcion == '2': menu_insumos()
-        elif opcion == '3': menu_proveedores()
-        elif opcion == '4': menu_mantenimientos()
-        elif opcion == '5': menu_maquinas()
-        elif opcion == '6': menu_tecnicos()
-        elif opcion == '7':
+        elif opcion == '4' and usuario.get('es_administrador'): menu_proveedores()
+        elif opcion == '3': menu_mantenimientos()
+        elif opcion == '5' and usuario.get('es_administrador'): menu_maquinas()
+        elif opcion == '6' and usuario.get('es_administrador'): menu_tecnicos()
+        elif opcion == '7' and usuario.get('es_administrador'): listar_registros_consumo()
+        elif opcion == '0':
             print("Cerrando sesión…\n")
             break
         else:
@@ -84,7 +94,7 @@ def flujo_login():
 
         if resultado.get('success'):
             print(f"\n✅ Bienvenido, {correo}.\n")
-            return resultado['usuario']  # o también podés retornar el token si lo usás
+            return resultado['usuario'] #aca tambien se guarda si es admin o no
         else:
             print(f"❌ {resultado.get('error', 'Error desconocido.')}")
             opcion = input("¿Desea intentar nuevamente? (s/n): ").lower().strip()
@@ -122,7 +132,7 @@ def main():
 
         if op == '1':
             usuario_logueado = flujo_login()
-            menu_principal()
+            menu_principal(usuario_logueado)
             break
         elif op == '2':
             flujo_registro()
@@ -240,3 +250,29 @@ def menu_tecnicos():
 
 if __name__ == "__main__":
     main()
+
+# ejemplo menu de reportes, hay que revisarlo y ver como implementarlo
+
+# def menu_reportes():
+#     while True:
+#         print("\n=== Menú de Reportes ===")
+#         print("1. Total mensual a cobrar a cada cliente")
+#         print("2. Insumos con mayor consumo y costos")
+#         print("3. Técnicos con más mantenimientos")
+#         print("4. Clientes con más máquinas instaladas")
+#         print("5. Volver")
+
+#         op = input("Opción: ").strip()
+
+#         if op == '1':
+#             reporte_total_mensual_clientes()
+#         elif op == '2':
+#             reporte_insumos_mas_consumidos()
+#         elif op == '3':
+#             reporte_tecnicos_con_mas_mantenimientos()
+#         elif op == '4':
+#             reporte_clientes_con_mas_maquinas()
+#         elif op == '5':
+#             break
+#         else:
+#             print("Opción no válida.")
