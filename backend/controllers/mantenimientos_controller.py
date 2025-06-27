@@ -20,7 +20,7 @@ def alta_mantenimiento():
     conexion = crear_conexion()
     if conexion:
         exito = insertar_mantenimiento(conexion, id_maquina, ci_tecnico, fecha, tipo, observaciones)
-        cerrar_conexion(conexion)
+        # cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento insertado correctamente.")
         else:
