@@ -51,6 +51,13 @@ from backend.controllers.registro_consumo_controller import (
     listar_registros_consumo
 )
 
+from backend.controllers.reportes_controller import (
+    reporte_total_mensual_por_cliente,
+    reporte_insumos_mas_consumidos,
+    reporte_tecnicos_mas_mantenimientos,
+    reporte_clientes_con_mas_maquinas
+)
+
 
 def menu_principal(usuario):
     """Menú con los distintos ABM. Asume que el usuario YA está logueado."""
@@ -64,6 +71,7 @@ def menu_principal(usuario):
             print("5. Máquinas")
             print("6. Técnicos")
             print("7. Registros de Consumo")
+        print("8. Reportes")
 
         print("0. Cerrar sesión")
 
@@ -76,6 +84,7 @@ def menu_principal(usuario):
         elif opcion == '5' and usuario.get('es_administrador'): menu_maquinas()
         elif opcion == '6' and usuario.get('es_administrador'): menu_tecnicos()
         elif opcion == '7' and usuario.get('es_administrador'): listar_registros_consumo()
+        elif opcion == '8': menu_reportes()
         elif opcion == '0':
             print("Cerrando sesión…\n")
             break
@@ -247,32 +256,31 @@ def menu_tecnicos():
         elif op == '5': break
         else: print("Opción no válida.")
 
+def menu_reportes():
+    while True:
+        print("\n=== Menú de Reportes ===")
+        print("1. Total mensual a cobrar a cada cliente")
+        print("2. Insumos con mayor consumo y costos")
+        print("3. Técnicos con más mantenimientos")
+        print("4. Clientes con más máquinas instaladas")
+        print("5. Volver")
+
+        op = input("Opción: ").strip()
+
+        if op == '1':
+            reporte_total_mensual_por_cliente()
+        elif op == '2':
+            reporte_insumos_mas_consumidos()
+        elif op == '3':
+            reporte_tecnicos_mas_mantenimientos()
+        elif op == '4':
+            reporte_clientes_con_mas_maquinas()
+        elif op == '5':
+            break
+        else:
+            print("Opción no válida.")
 
 if __name__ == "__main__":
     main()
 
-# ejemplo menu de reportes, hay que revisarlo y ver como implementarlo
 
-# def menu_reportes():
-#     while True:
-#         print("\n=== Menú de Reportes ===")
-#         print("1. Total mensual a cobrar a cada cliente")
-#         print("2. Insumos con mayor consumo y costos")
-#         print("3. Técnicos con más mantenimientos")
-#         print("4. Clientes con más máquinas instaladas")
-#         print("5. Volver")
-
-#         op = input("Opción: ").strip()
-
-#         if op == '1':
-#             reporte_total_mensual_clientes()
-#         elif op == '2':
-#             reporte_insumos_mas_consumidos()
-#         elif op == '3':
-#             reporte_tecnicos_con_mas_mantenimientos()
-#         elif op == '4':
-#             reporte_clientes_con_mas_maquinas()
-#         elif op == '5':
-#             break
-#         else:
-#             print("Opción no válida.")

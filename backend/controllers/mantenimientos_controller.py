@@ -65,6 +65,12 @@ def listar_mantenimientos():
         mantenimientos = mostrar_mantenimientos(conexion)
         cerrar_conexion(conexion)
 
+        if mantenimientos.get("ok"):
+            mantenimientos = mantenimientos.get("data")
+        else:
+            print(f"❌ Error al obtener mantenimientos: {mantenimientos.get('error')}")
+            return
+
         if mantenimientos:
             for m in mantenimientos:
                 print(f"ID: {m['id']} | ID Maquina: {m['id_maquina']} | CI Tecnico: {m['ci_tecnico']} | Fecha: {m['fecha']} | Tipo: {m['tipo']} | Observaciones: {m['observaciones']}")
