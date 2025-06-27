@@ -80,6 +80,9 @@ def mostrar_insumos(conexion):
         cursor = conexion.cursor(dictionary=True)
         cursor.execute("SELECT * FROM insumos")
         resultados = cursor.fetchall()
+        if not resultados:
+            return {"ok": False, "error": "No se encontraron insumos."}
+        
         return {"ok": True, "data": resultados}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
