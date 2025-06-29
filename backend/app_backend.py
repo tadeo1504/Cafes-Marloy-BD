@@ -83,7 +83,7 @@ def menu_principal(usuario):
         elif opcion == '3': menu_mantenimientos()
         elif opcion == '5' and usuario.get('es_administrador'): menu_maquinas()
         elif opcion == '6' and usuario.get('es_administrador'): menu_tecnicos()
-        elif opcion == '7' and usuario.get('es_administrador'): listar_registros_consumo()
+        elif opcion == '7' and usuario.get('es_administrador'): menu_registros_consumo()
         elif opcion == '8': menu_reportes()
         elif opcion == '0':
             print("Cerrando sesión…\n")
@@ -253,6 +253,23 @@ def menu_tecnicos():
         elif op == '2': modificar_tecnico()
         elif op == '3': baja_tecnico()
         elif op == '4': listar_tecnicos()
+        elif op == '5': break
+        else: print("Opción no válida.")
+
+def menu_registros_consumo():
+    while True:
+        print("\n=== Menú de Registros de Consumo ===")
+        print("1. Alta")
+        print("2. Modificar")
+        print("3. Baja")
+        print("4. Listar")
+        print("5. Volver")
+
+        op = input("Opción: ").strip()
+        if   op == '1': alta_registro_consumo()
+        elif op == '2': modificar_registro_consumo()
+        elif op == '3': baja_registro_consumo()
+        elif op == '4': listar_registros_consumo()
         elif op == '5': break
         else: print("Opción no válida.")
 

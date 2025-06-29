@@ -58,6 +58,10 @@ def listar_proveedores():
     if conexion:
         proveedores = mostrar_proveedores(conexion)
         cerrar_conexion(conexion)
+        if proveedores.get('ok'):
+            proveedores = proveedores.get('data')
+        else:
+            proveedores = []
 
         if proveedores:
             for p in proveedores:

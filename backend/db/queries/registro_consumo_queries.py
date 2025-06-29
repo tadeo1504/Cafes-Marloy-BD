@@ -3,13 +3,13 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_registro_consumo(conexion, id_maquina, id_insumo, fecha, cantidad_usada):
+def insertar_registro_consumo(conexion, id_maquina, id_insumo, cantidad_usada):
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
         cursor = conexion.cursor()
-        consulta = '''insert into registro_consumo (id_maquina, id_insumo, fecha, cantidad_usada) values (%s, %s, %s, %s) '''
-        cursor.execute(consulta,(id_maquina, id_insumo, fecha, cantidad_usada))
+        consulta = '''insert into registro_consumo (id_maquina, id_insumo, cantidad_usada) values (%s, %s, %s) '''
+        cursor.execute(consulta,(id_maquina, id_insumo, cantidad_usada))
         conexion.commit()
         return {"ok": True}
     except mysql.connector.Error as e:

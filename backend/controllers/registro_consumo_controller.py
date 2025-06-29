@@ -10,12 +10,12 @@ def alta_registro_consumo():
     print("=== Alta de Registro de Consumo ===")
     id_maquina = input("ID de la Máquina: ")
     id_insumo = input("ID del Insumo: ")
-    fecha = input("Fecha (YYYY-MM-DD): ")
-    cantidad_usada = input("Cantidad Usada: ")
+    # fecha = input("Fecha (YYYY-MM-DD): ")
+    cantidad_usada = input("Cantidad Usada (kg/litros): ")
 
     conexion = crear_conexion()
     if conexion:
-        resultado = insertar_registro_consumo(conexion, id_maquina, id_insumo, fecha, cantidad_usada)
+        resultado = insertar_registro_consumo(conexion, id_maquina, id_insumo, cantidad_usada)
         cerrar_conexion(conexion)
         if resultado["ok"]:
             print("✅ Registro de consumo insertado correctamente.")
@@ -58,9 +58,13 @@ def listar_registros_consumo():
     if conexion:
         registros = mostrar_registros_consumo(conexion)
         cerrar_conexion(conexion)
+        if registros.get('ok'):
+            registros = registros.get('data')
+        else:
+            registros = []
         if registros:
             for registro in registros:
-                print(f"ID: {registro[0]}, ID Máquina: {registro[1]}, ID Insumo: {registro[2]}, Fecha: {registro[3]}, Cantidad Usada: {registro[4]}")
+                print(f"ID: {registro['id']} | ID Máquina: {registro['id_maquina']} | ID Insumo: {registro['id_insumo']} | Fecha: {registro['fecha']} | Cantidad Usada: {registro['cantidad_usada']}")
         else:
             print("No hay registros de consumo disponibles.")
             

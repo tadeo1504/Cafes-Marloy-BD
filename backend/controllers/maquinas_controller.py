@@ -33,6 +33,10 @@ def modificar_maquina():
     ubicacion_cliente = input("Nueva ubicación cliente: ")
     costo_alquiler_mensual = input("Nuevo costo mensual: ")
 
+    if id == "" or id_cliente == "" or modelo == "" or ubicacion_cliente == "" or costo_alquiler_mensual == "":
+        print("❌ Todos los campos son obligatorios.")
+        return
+    
     conexion = crear_conexion()
     if conexion:
         exito = editar_maquina(conexion, id, id_cliente, modelo, ubicacion_cliente, costo_alquiler_mensual)
@@ -48,7 +52,7 @@ def baja_maquina():
 
     conexion = crear_conexion()
     if conexion:
-        exito = eliminar_maquina(conexion, id_maquina)
+        exito = eliminar_maquina(conexion, id)
         cerrar_conexion(conexion)
         if exito:
             print("Maquina eliminada correctamente.")

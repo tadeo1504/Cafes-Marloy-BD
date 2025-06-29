@@ -33,10 +33,13 @@ def modificar_insumo():
     tipo = input("Tipo: ")
     precio_unitario = input("Precio unitario: ")
     id_proveedor = input("Id del Proveedor: ")
+    if id == "" or descripcion == "" or tipo == "" or precio_unitario == "" or id_proveedor == "":
+        print("❌ Todos los campos son obligatorios.")
+        return
 
     conexion = crear_conexion()
     if conexion:
-        exito = editar_insumo(conexion, id, descripcion, tipo, precio_unitario, id_proveedor)
+        exito = editar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor, id)
         cerrar_conexion(conexion)
         if exito:
             print("✅ Insumo modificado correctamente.")

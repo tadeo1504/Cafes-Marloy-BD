@@ -42,6 +42,7 @@ def editar_cliente(conexion, nombre, direccion, telefono, correo, id):
         if cursor.rowcount > 0:
             return True
         else:
+            print("📭 No se encontraron clientes con ese ID.")
             return False
     except mysql.connector.Error as e:
         return False
@@ -59,7 +60,7 @@ def eliminar_cliente(conexion, id):
             DELETE FROM clientes
             WHERE id = %s
         """
-        cursor.execute(consulta, id)
+        cursor.execute(consulta, (id,))  
         conexion.commit()
         if cursor.rowcount > 0:
             return True

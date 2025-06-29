@@ -4,7 +4,7 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
-def insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observaciónes):
+def insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, observaciones):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -13,10 +13,10 @@ def insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observ
     try:
         cursor = conexion.cursor()
         consulta = """
-            INSERT INTO mantenimientos (id_maquina, ci_tecnico, tipo, fecha, observaciónes)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO mantenimientos (id_maquina, ci_tecnico, tipo, observaciones)
+            VALUES (%s, %s, %s, %s)
         """
-        valores = (id_maquina, ci_tecnico, tipo, fecha, observaciónes)
+        valores = (id_maquina, ci_tecnico, tipo, observaciones)
         cursor.execute(consulta, valores)
         conexion.commit()
         return True
@@ -25,7 +25,7 @@ def insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observ
     finally:
         cerrar_conexion(conexion)
 
-def editar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observaciónes, id):
+def editar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observaciones, id):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -37,11 +37,11 @@ def editar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, fecha, observac
             SET id_maquina = %s, ci_tecnico = %s, tipo = %s, fecha = %s, observaciones = %s
             WHERE id = %s
         """
-        valores = (id_maquina, ci_tecnico, tipo, fecha, observaciónes)
+        valores = (id_maquina, ci_tecnico, tipo, fecha, observaciones, id)
         cursor.execute(consulta, valores)
         conexion.commit()
         if cursor.rowcount > 0:
-            print("✅ Mantenimiento editado exitosamente.")
+            return True
         else:
             print("📭 No se encontró un mantenimiento con ese ID.")
     except mysql.connector.Error as e:
@@ -61,7 +61,7 @@ def eliminar_mantenimiento(conexion, id):
             DELETE mantenimientos
             WHERE id = %s
         """
-        cursor.execute(consulta, id)
+        cursor.execute(consulta, (id,))  
         conexion.commit()
         if cursor.rowcount > 0:
             print("✅ Mantenimiento eliminado exitosamente.")
