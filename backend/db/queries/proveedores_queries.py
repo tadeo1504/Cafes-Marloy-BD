@@ -1,7 +1,6 @@
 # ABM de proveedores.(insert, update, delete, select)
 # Permite manejar el alta, baja, modificacion y consulta de proveedores y luego importarlo en el controlador de proveedores.
 
-from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_proveedor(conexion, nombre, contacto):
@@ -15,8 +14,7 @@ def insertar_proveedor(conexion, nombre, contacto):
         return {"ok": True}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+
 
 def editar_proveedor(conexion, id, nombre, contacto):
     if not conexion:
@@ -33,8 +31,7 @@ def editar_proveedor(conexion, id, nombre, contacto):
         return {"ok": True, "updated": cursor.rowcount}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+
 
 def eliminar_proveedor(conexion, id):
     if not conexion:
@@ -49,8 +46,7 @@ def eliminar_proveedor(conexion, id):
         return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+
 
 def mostrar_proveedores(conexion):
     if not conexion:
@@ -62,5 +58,4 @@ def mostrar_proveedores(conexion):
         return {"ok": True, "data": resultados}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+

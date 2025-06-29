@@ -1,6 +1,5 @@
 #registro consumo
 
-from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_registro_consumo(conexion, id_maquina, id_insumo, cantidad_usada):
@@ -14,8 +13,7 @@ def insertar_registro_consumo(conexion, id_maquina, id_insumo, cantidad_usada):
         return {"ok": True}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+
 
 def editar_registro_consumo(conexion, id, id_maquina, id_insumo, fecha, cantidad_usada):
     if not conexion:
@@ -32,8 +30,7 @@ def editar_registro_consumo(conexion, id, id_maquina, id_insumo, fecha, cantidad
         return {"ok": True, "updated": cursor.rowcount}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+
 
 def eliminar_registro_consumo(conexion, id):
     if not conexion:
@@ -46,8 +43,7 @@ def eliminar_registro_consumo(conexion, id):
         return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+
 
 def mostrar_registros_consumo(conexion):
     if not conexion:
@@ -59,5 +55,3 @@ def mostrar_registros_consumo(conexion):
         return {"ok": True, "data": resultados}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)

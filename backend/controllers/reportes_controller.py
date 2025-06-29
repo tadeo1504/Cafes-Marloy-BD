@@ -20,7 +20,7 @@ def reporte_total_mensual_por_cliente():
     if not (1 <= mes <= 12) or (anio < 2000 and anio > 2025):
         print("❌ Mes o año inválido. Deben ser números válidos.")
         return
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if not conexion:
         return
 
@@ -59,7 +59,7 @@ def reporte_total_mensual_por_cliente():
 
 def reporte_insumos_mas_consumidos():
     """Top 10 de insumos más usados y su costo total"""
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if not conexion:
         return
 
@@ -94,7 +94,7 @@ def reporte_insumos_mas_consumidos():
 
 def reporte_tecnicos_mas_mantenimientos():
     """Técnicos que realizaron más mantenimientos"""
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if not conexion:
         return
 

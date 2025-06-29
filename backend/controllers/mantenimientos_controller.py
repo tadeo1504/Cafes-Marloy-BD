@@ -20,7 +20,7 @@ def alta_mantenimiento():
     conexion = crear_conexion()
     if conexion:
         exito = insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, observaciones)
-        # cerrar_conexion(conexion)
+        cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento insertado correctamente.")
         else:
@@ -39,7 +39,7 @@ def modificar_mantenimiento():
         print("❌ Todos los campos son obligatorios.")
         return
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = editar_mantenimiento(conexion, id, id_maquina, ci_tecnico, fecha, tipo, observaciones)
         cerrar_conexion(conexion)
@@ -52,7 +52,7 @@ def baja_mantenimiento():
     print("=== Baja de mantenimiento ===")
     id = input("ID del mantenimiento a eliminar: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = eliminar_mantenimiento(conexion, id)
         cerrar_conexion(conexion)
@@ -64,7 +64,7 @@ def baja_mantenimiento():
 
 def listar_mantenimientos():
     print("=== Lista de mantenimientos ===")
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         mantenimientos = mostrar_mantenimientos(conexion)
         cerrar_conexion(conexion)

@@ -15,7 +15,7 @@ def alta_proveedor():
     nombre = input("Nombre: ")
     contacto = input("Número de Contacto: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = insertar_proveedor(conexion, nombre, contacto)
         cerrar_conexion(conexion)
@@ -30,20 +30,20 @@ def modificar_proveedor():
     nombre = input("Nuevo Nombre: ")
     contacto = input("Nuevo Número de Contacto: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = editar_proveedor(conexion, id, nombre, contacto)
         cerrar_conexion(conexion)
         if exito:
             print("✅ Proveedor modificado correctamente.")
         else:
-            print("❌ No se pudo modificar el proveedor .")
+            print("❌ No se pudo modificar el proveedor.")
 
 def baja_proveedor():
     print("=== Baja de Proveedor ===")
     id = input("ID del Proveedor a eliminar: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = eliminar_proveedor(conexion, id)
         cerrar_conexion(conexion)
@@ -54,7 +54,7 @@ def baja_proveedor():
 
 def listar_proveedores():
     print("=== Lista de Proveedores ===")
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         proveedores = mostrar_proveedores(conexion)
         cerrar_conexion(conexion)

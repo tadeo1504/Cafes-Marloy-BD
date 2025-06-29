@@ -44,6 +44,7 @@ def modificar_cliente():
         cerrar_conexion(conexion)
         if exito:
             print("✅ Cliente modificado correctamente.")
+            return True
         else:
             print("❌ No se pudo modificar el cliente.")
 
@@ -57,6 +58,7 @@ def baja_cliente():
         cerrar_conexion(conexion)
         if exito:
             print("✅ Cliente eliminado correctamente.")
+            return True
         else:
             print("❌ No se pudo eliminar el cliente.")
 
@@ -66,10 +68,17 @@ def listar_clientes():
     if conexion:
         clientes = mostrar_clientes(conexion)
         cerrar_conexion(conexion)
+        if clientes.get('ok'):
+            clientes = clientes.get('data')
+        else:
+            clientes = []
+    
 
         if clientes:
             for c in clientes:
                 print(f"ID: {c['id']} | Nombre: {c['nombre']} | Dirección: {c['direccion']} | Tel: {c['telefono']} | Correo: {c['correo']}")
+            return clientes
         else:
             print("❌ No se encontraron clientes.")
+            return {"ok": False, "mensaje": "No se encontraron clientes."}
 

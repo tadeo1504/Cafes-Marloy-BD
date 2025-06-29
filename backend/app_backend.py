@@ -71,7 +71,7 @@ def menu_principal(usuario):
             print("5. Máquinas")
             print("6. Técnicos")
             print("7. Registros de Consumo")
-        print("8. Reportes")
+            print("8. Reportes")
 
         print("0. Cerrar sesión")
 
@@ -84,7 +84,7 @@ def menu_principal(usuario):
         elif opcion == '5' and usuario.get('es_administrador'): menu_maquinas()
         elif opcion == '6' and usuario.get('es_administrador'): menu_tecnicos()
         elif opcion == '7' and usuario.get('es_administrador'): menu_registros_consumo()
-        elif opcion == '8': menu_reportes()
+        elif opcion == '8' and usuario.get('es_administrador'): menu_reportes()
         elif opcion == '0':
             print("Cerrando sesión…\n")
             break
@@ -93,10 +93,10 @@ def menu_principal(usuario):
 
 
 def flujo_login():
-    """Bucle que pide usuario y contraseña hasta que inicie sesión correctamente o elija salir."""
+    """Bucle que pide correo y contraseña hasta que inicie sesión correctamente o elija salir."""
     while True:
         print("\n=== Inicio de Sesión ===")
-        correo = input("Usuario: ").strip()
+        correo = input("Correo: ").strip()
         contrasena = getpass("Contraseña: ")
 
         resultado = login_usuario(correo, contrasena)
