@@ -42,7 +42,7 @@ def eliminar_tecnico(conexion, ci):
     try:
         cursor = conexion.cursor()
         consulta = "DELETE FROM tecnicos WHERE ci = %s"
-        cursor.execute(consulta, (ci))
+        cursor.execute(consulta, (ci,))  
         conexion.commit()
         return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:

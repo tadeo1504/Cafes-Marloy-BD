@@ -25,7 +25,7 @@ def insertar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor):
     finally:
         cerrar_conexion(conexion)
 
-def editar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor):
+def editar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor, id):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return
@@ -37,11 +37,12 @@ def editar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor):
             SET descripcion = %s, tipo = %s, precio_unitario = %s, id_proveedor = %s
             WHERE id = %s
         """
-        valores = (descripcion, tipo, precio_unitario, id_proveedor)
+        valores = (descripcion, tipo, precio_unitario, id_proveedor, id)
         cursor.execute(consulta, valores)
         conexion.commit()
         if cursor.rowcount > 0:
-            print("✅ Insumo editado exitosamente.")
+            # print("✅ Insumo editado exitosamente.")
+            return True
         else:
             print("📭 No se encontraron insumos con ese ID.")
     except mysql.connector.Error as e:
@@ -61,7 +62,7 @@ def eliminar_insumo(conexion, id):
             DELETE insumos
             WHERE id = %s
         """
-        cursor.execute(consulta, id)
+        cursor.execute(consulta, (id,))  
         conexion.commit()
         if cursor.rowcount > 0:
             print("✅ Insumo eliminado exitosamente.")

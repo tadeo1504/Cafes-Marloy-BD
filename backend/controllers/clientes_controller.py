@@ -34,6 +34,10 @@ def modificar_cliente():
     telefono = input("Nuevo Teléfono: ")
     correo = input("Nuevo Correo: ")
 
+    if id == "" or nombre == "" or direccion == "" or telefono == "" or correo == "":
+        print("❌ Todos los campos son obligatorios.")
+        return
+    
     conexion = crear_conexion()
     if conexion:
         exito = editar_cliente(conexion, nombre, direccion, telefono, correo, id)

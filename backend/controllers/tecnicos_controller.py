@@ -63,7 +63,10 @@ def listar_tecnicos():
     if conexion:
         tecnicos = mostrar_tecnicos(conexion)
         cerrar_conexion(conexion)
-
+        if tecnicos.get('ok'):
+            tecnicos = tecnicos.get('data')
+        else:
+            tecnicos = []
         if tecnicos:
             for t in tecnicos:
                 print(f"CI: {t['ci']} | Nombre: {t['nombre']} | Apellido: {t['apellido']} | Tel: {t['telefono']}")

@@ -13,13 +13,13 @@ def alta_mantenimiento():
     print("=== Alta de Mantenimiento ===")
     id_maquina = input("ID Maquina: ")
     ci_tecnico = input("CI Tecnico: ")
-    fecha = input("Fecha: ")
+    # fecha = input("Fecha: ")
     tipo = input("Tipo: ")
     observaciones = input("Observaciones: ")
 
     conexion = crear_conexion()
     if conexion:
-        exito = insertar_mantenimiento(conexion, id_maquina, ci_tecnico, fecha, tipo, observaciones)
+        exito = insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, observaciones)
         # cerrar_conexion(conexion)
         if exito:
             print("Mantenimiento insertado correctamente.")
@@ -34,6 +34,10 @@ def modificar_mantenimiento():
     fecha = input("Fecha: ")
     tipo = input("Tipo: ")
     observaciones = input("Observaciones: ")
+
+    if id == "" or id_maquina == "" or ci_tecnico == "" or fecha == "" or tipo == "" or observaciones == "":
+        print("❌ Todos los campos son obligatorios.")
+        return
 
     conexion = crear_conexion()
     if conexion:

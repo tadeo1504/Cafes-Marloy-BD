@@ -71,4 +71,6 @@ def registrar_usuario(correo, contrasena):
         finally:
             cerrar_conexion(conexion)
 
+
+
             

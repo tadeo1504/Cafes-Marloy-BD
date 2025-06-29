@@ -42,8 +42,10 @@ def eliminar_proveedor(conexion, id):
     try:
         cursor = conexion.cursor()
         consulta = "DELETE FROM proveedores WHERE id = %s"
-        cursor.execute(consulta, (id))
+        cursor.execute(consulta, (id,))  
         conexion.commit()
+        if cursor.rowcount == 0:
+            return {"ok": False, "error": "No se encontró el proveedor con ese ID"}
         return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
