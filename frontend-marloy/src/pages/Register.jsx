@@ -26,13 +26,13 @@ function Register() {
     const handleRegister = (event) => {
         event.preventDefault()
         axios.post(`${url_backend}/api/usuarios/registro`, { correo, contrasena })
-    .then(response => {
-        console.log('Registro exitoso:', response.data.mensaje);
-        navigate('/login'); // lo mandás al login después de registrarse
-    })
-    .catch(error => {
-        console.error('Fallo el registro:', error.response?.data?.error || error.message);
-    })
+            .then(response => {
+                console.log('Registro exitoso:', response.data.mensaje);
+                navigate('/login'); // lo mandás al login después de registrarse
+            })
+            .catch(error => {
+                console.error('Fallo el registro:', error.response?.data?.error || error.message);
+            })
 
     }
 
@@ -72,11 +72,11 @@ function Register() {
                         className="w-full bg-[#b08968] text-white py-3 rounded-lg font-semibold hover:bg-[#7f5539] focus:outline-none focus:ring-2 focus:ring-[#b08968] focus:ring-offset-2 transition duration-200"
                         onClick={handleRegister}
                     >
-                        Register
+                        Registrarse
                     </button>
                 </form>
                 <p className="mt-4 text-sm text-center text-[#a98467]">
-                    Ya tienes una cuenta, registrate. <a href="/login" className="text-[#b08968] hover:underline">Iniciar sesión</a>
+                    Ya tienes una cuenta? <a href="/login" className="text-[#b08968] hover:underline">Inicia sesión</a>
                 </p>
             </div>
         </div>

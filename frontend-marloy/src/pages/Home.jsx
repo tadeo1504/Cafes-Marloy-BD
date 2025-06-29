@@ -2,7 +2,11 @@ import React from 'react'
 import Header from '../components/Header'
 import { useEffect, useState } from 'react'
 
+
 function Home() {
+
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const esAdmin = usuario?.es_administrador;
 
 
   // Estado para manejar la autenticación del usuario
@@ -12,6 +16,7 @@ function Home() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      console.log("Token encontrado:", token);
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
@@ -33,7 +38,7 @@ function Home() {
   const navigateTo = (path) => {
     window.location.href = path;
   }
-  
+
   return (
     <div className="min-h-screen bg-[#f3ebe4]">
       <Header />
@@ -44,21 +49,27 @@ function Home() {
       </div>
 
       <div className="p-6 grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-10">
-        <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/proveedores')}>
-          Proveedores
-        </button>
-        <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/maquinas')}>
-          Maquinas
-        </button>
-        <button  className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/clientes')}>
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/proveedores')}>
+            Proveedores
+          </button>
+        )}
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/maquinas')}>
+            Maquinas
+          </button>
+        )}
+        <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/clientes')}>
           Clientes
         </button>
         <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/insumos')}>
           Insumos
         </button>
-        <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/tecnicos')}>
-          Técnicos
-        </button>
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/tecnicos')}>
+            Técnicos
+          </button>
+        )}
         <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/mantenimientos')}>
           Mantenimientos
         </button>

@@ -23,7 +23,10 @@ function Login() {
         }).then((res) => {
             const token = res.data.token
             localStorage.setItem('token', token)
+            localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
             console.log("Login exitoso")
+            console.log('data:', res.data)
+            console.log(res.data.usuario.es_administrador)
             navigate('/home')
         }).catch((err) => {
             console.error("Login failed:", err)

@@ -1,7 +1,6 @@
 # ABM de maquinas.(insert, update, delete, select)
 # Permite manejar el alta, baja, modificacion y consulta de maquinas y luego importarlo en el controlador de maquinas.
 
-from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual):
@@ -22,10 +21,9 @@ def insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alqu
         return True
     except mysql.connector.Error as e:
         print(f"❌ Error al insertar maquina: {e}")
-    finally:
-        cerrar_conexion(conexion)
 
-def editar_maquina(conexion, id, id_cliente, modelo=None, ubicacion_cliente=None, costo_alquiler_mensual=None):
+
+def editar_maquina(conexion, id, id_cliente, modelo, ubicacion_cliente, costo_alquiler_mensual):
     if not conexion:
         print("❌ No se pudo establecer la conexión. Saliendo...")
         return False
@@ -47,8 +45,7 @@ def editar_maquina(conexion, id, id_cliente, modelo=None, ubicacion_cliente=None
             return False
     except mysql.connector.Error as e:
         print(f"❌ Error al editar maquina: {e}")
-    finally:
-        cerrar_conexion(conexion)
+
         
 
 def eliminar_maquina(conexion, id):
@@ -62,7 +59,7 @@ def eliminar_maquina(conexion, id):
             DELETE FROM maquinas
             WHERE id = %s
         """
-        cursor.execute(consulta, (id,))  # <- fijate la coma
+        cursor.execute(consulta, (int(id),))  
         conexion.commit()
         if cursor.rowcount > 0:
             return True
@@ -70,8 +67,6 @@ def eliminar_maquina(conexion, id):
             print("📭 No se encontró una maquina con ese ID.")
     except mysql.connector.Error as e:
         print(f"❌ Error al eliminar maquina: {e}")
-    finally:
-        cerrar_conexion(conexion)
         
 def mostrar_maquinas(conexion):
     if not conexion:

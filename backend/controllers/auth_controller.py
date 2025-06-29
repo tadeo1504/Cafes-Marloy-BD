@@ -67,7 +67,10 @@ def registrar_usuario(correo, contrasena):
             conexion.commit()
             return {'success': True, 'message': 'Usuario registrado exitosamente.'}
         except mysql.connector.Error as err:
-            return {'error': f'Error al registrar el usuario: {err}'}
+            if err.errno == mysql.connector.errorcode.ER_DUP_ENTRY:
+                return {'error': 'El correo ya está registrado.'}
+            else:
+                return {'error': f'Error al registrar el usuario: {err}'}
         finally:
             cerrar_conexion(conexion)
 

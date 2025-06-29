@@ -24,7 +24,8 @@ function Clientes() {
     const fetchClientes = async () => {
       try {
         const response = await axios.get(`${url_backend}/api/clientes`);
-        setClientes(response.data);
+        console.log('Clientes obtenidos:', response.data);
+        setClientes(response.data.data);
       } catch (error) {
         console.error('Error fetching clientes:', error);
       }
@@ -176,68 +177,68 @@ function Clientes() {
       </Modal>
       {/* Modal para agregar cliente */}
       {/* Modal de agregar cliente */}
-<Modal
-  isOpen={ModalIsOpenAgregar}
-  onRequestClose={() => setModalIsOpenAgregar(false)}
-  className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto mt-20"
-  overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start"
->
-  <h2 className="text-2xl font-bold mb-4 text-[#4e342e]">Agregar Cliente</h2>
-  <input
-    type="text"
-    name="nombre"
-    value={clienteNuevo.nombre}
-    onChange={(e) => setClienteNuevo({ ...clienteNuevo, nombre: e.target.value })}
-    className="w-full p-2 border mb-2"
-    placeholder="Nombre"
-  />
-  <input
-    type="text"
-    name="direccion"
-    value={clienteNuevo.direccion}
-    onChange={(e) => setClienteNuevo({ ...clienteNuevo, direccion: e.target.value })}
-    className="w-full p-2 border mb-2"
-    placeholder="Dirección"
-  />
-  <input
-    type="text"
-    name="telefono"
-    value={clienteNuevo.telefono}
-    onChange={(e) => setClienteNuevo({ ...clienteNuevo, telefono: e.target.value })}
-    className="w-full p-2 border mb-2"
-    placeholder="Teléfono"
-  />
-  <input
-    type="email"
-    name="correo"
-    value={clienteNuevo.correo}
-    onChange={(e) => setClienteNuevo({ ...clienteNuevo, correo: e.target.value })}
-    className="w-full p-2 border mb-4"
-    placeholder="Correo"
-  />
-  <div className="flex justify-end gap-2">
-    <button
-      className="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
-      onClick={() => setModalIsOpenAgregar(false)}
-    >
-      Cancelar
-    </button>
-    <button
-      className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white font-bold py-2 px-4 rounded"
-      onClick={async () => {
-        try {
-          const res = await axios.post(`${url_backend}/api/clientes`, clienteNuevo);
-          setClientes(prev => [...prev, res.data]); // asumimos que el backend responde con el nuevo cliente
-          setModalIsOpenAgregar(false);
-        } catch (error) {
-          console.error("Error al agregar cliente:", error);
-        }
-      }}
-    >
-      Guardar
-    </button>
-  </div>
-</Modal>
+      <Modal
+        isOpen={ModalIsOpenAgregar}
+        onRequestClose={() => setModalIsOpenAgregar(false)}
+        className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto mt-20"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start"
+      >
+        <h2 className="text-2xl font-bold mb-4 text-[#4e342e]">Agregar Cliente</h2>
+        <input
+          type="text"
+          name="nombre"
+          value={clienteNuevo.nombre}
+          onChange={(e) => setClienteNuevo({ ...clienteNuevo, nombre: e.target.value })}
+          className="w-full p-2 border mb-2"
+          placeholder="Nombre"
+        />
+        <input
+          type="text"
+          name="direccion"
+          value={clienteNuevo.direccion}
+          onChange={(e) => setClienteNuevo({ ...clienteNuevo, direccion: e.target.value })}
+          className="w-full p-2 border mb-2"
+          placeholder="Dirección"
+        />
+        <input
+          type="text"
+          name="telefono"
+          value={clienteNuevo.telefono}
+          onChange={(e) => setClienteNuevo({ ...clienteNuevo, telefono: e.target.value })}
+          className="w-full p-2 border mb-2"
+          placeholder="Teléfono"
+        />
+        <input
+          type="email"
+          name="correo"
+          value={clienteNuevo.correo}
+          onChange={(e) => setClienteNuevo({ ...clienteNuevo, correo: e.target.value })}
+          className="w-full p-2 border mb-4"
+          placeholder="Correo"
+        />
+        <div className="flex justify-end gap-2">
+          <button
+            className="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
+            onClick={() => setModalIsOpenAgregar(false)}
+          >
+            Cancelar
+          </button>
+          <button
+            className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white font-bold py-2 px-4 rounded"
+            onClick={async () => {
+              try {
+                const res = await axios.post(`${url_backend}/api/clientes`, clienteNuevo);
+                setClientes(prev => [...prev, res.data]); // asumimos que el backend responde con el nuevo cliente
+                setModalIsOpenAgregar(false);
+              } catch (error) {
+                console.error("Error al agregar cliente:", error);
+              }
+            }}
+          >
+            Guardar
+          </button>
+        </div>
+      </Modal>
 
     </div>
   );

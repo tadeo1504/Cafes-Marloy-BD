@@ -1,7 +1,6 @@
 # ABM de tecnicos.(insert, update, delete, select)
 # Permite manejar el alta, baja, modificacion y consulta de tecnicos y luego importarlo en el controlador de tecnicos.
 
-from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_tecnico(conexion, ci, nombre, apellido, telefono):
@@ -15,8 +14,7 @@ def insertar_tecnico(conexion, ci, nombre, apellido, telefono):
         return {"ok": True}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+ 
 
 def editar_tecnico(conexion, ci, nombre, apellido, telefono):
     if not conexion:
@@ -33,8 +31,7 @@ def editar_tecnico(conexion, ci, nombre, apellido, telefono):
         return {"ok": True, "updated": cursor.rowcount}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+
 
 def eliminar_tecnico(conexion, ci):
     if not conexion:
@@ -47,8 +44,6 @@ def eliminar_tecnico(conexion, ci):
         return {"ok": True, "deleted": cursor.rowcount}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
 
 def mostrar_tecnicos(conexion):
     if not conexion:
@@ -60,5 +55,4 @@ def mostrar_tecnicos(conexion):
         return {"ok": True, "data": resultados}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+

@@ -16,7 +16,7 @@ def alta_maquina():
     ubicacion_cliente = input("ubicacion cliente: ")
     costo_alquiler_mensual = input("costo mensual: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
         cerrar_conexion(conexion)
@@ -36,8 +36,8 @@ def modificar_maquina():
     if id == "" or id_cliente == "" or modelo == "" or ubicacion_cliente == "" or costo_alquiler_mensual == "":
         print("❌ Todos los campos son obligatorios.")
         return
-    
-    conexion = crear_conexion()
+
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = editar_maquina(conexion, id, id_cliente, modelo, ubicacion_cliente, costo_alquiler_mensual)
         cerrar_conexion(conexion)
@@ -50,7 +50,7 @@ def baja_maquina():
     print("=== Baja de maquina ===")
     id = int(input("ID de la maquina a eliminar: ") )
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = eliminar_maquina(conexion, id)
         cerrar_conexion(conexion)
@@ -62,7 +62,7 @@ def baja_maquina():
 
 def listar_maquinas():
     print("=== Lista de Maquinas ===")
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         resultado = mostrar_maquinas(conexion)
         cerrar_conexion(conexion)

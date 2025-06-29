@@ -1,7 +1,6 @@
 # ABM de insumos.(insert, update, delete, select)
 # Permite manejar el alta, baja, modificacion y consulta de insumos y luego importarlo en el controlador de insumos.
 
-from backend.db.conexion import crear_conexion, cerrar_conexion
 import mysql.connector
 
 def insertar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor):
@@ -22,8 +21,7 @@ def insertar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor):
         return True
     except mysql.connector.Error as e:
         print(f"❌ Error al insertar insumos: {e}")
-    finally:
-        cerrar_conexion(conexion)
+
 
 def editar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor, id):
     if not conexion:
@@ -47,8 +45,7 @@ def editar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor, id
             print("📭 No se encontraron insumos con ese ID.")
     except mysql.connector.Error as e:
         print(f"❌ Error al editar insumos: {e}")
-    finally:
-        cerrar_conexion(conexion)
+
         
 
 def eliminar_insumo(conexion, id):
@@ -70,11 +67,9 @@ def eliminar_insumo(conexion, id):
             print("📭 No se encontraron insumos con ese ID.")
     except mysql.connector.Error as e:
         print(f"❌ Error al eliminar insumos: {e}")
-    finally:
-        cerrar_conexion(conexion)
+
         
 def mostrar_insumos(conexion):
-    conexion = crear_conexion()
     if not conexion:
         return {"ok": False, "error": "No se pudo conectar a la BD"}
     try:
@@ -87,5 +82,4 @@ def mostrar_insumos(conexion):
         return {"ok": True, "data": resultados}
     except mysql.connector.Error as e:
         return {"ok": False, "error": str(e)}
-    finally:
-        cerrar_conexion(conexion)
+

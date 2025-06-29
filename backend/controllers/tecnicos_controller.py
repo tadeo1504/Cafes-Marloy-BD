@@ -18,7 +18,7 @@ def alta_tecnico():
     apellido = input("Apellido: ")
     telefono = input("Teléfono: ")
     
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = insertar_tecnico(conexion, ci, nombre, apellido, telefono)
         cerrar_conexion(conexion)
@@ -34,7 +34,7 @@ def modificar_tecnico():
     apellido = input("Nuevo Apellido: ")
     telefono = input("Nuevo Teléfono: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = editar_tecnico(conexion, ci, nombre, apellido, telefono)
         cerrar_conexion(conexion)
@@ -47,7 +47,7 @@ def baja_tecnico():
     print("=== Baja de tecnico ===")
     ci = input("CI del tecnico a eliminar: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = eliminar_tecnico(conexion, ci)
         cerrar_conexion(conexion)
@@ -59,7 +59,7 @@ def baja_tecnico():
 
 def listar_tecnicos():
     print("=== Lista de tecnicos ===")
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         tecnicos = mostrar_tecnicos(conexion)
         cerrar_conexion(conexion)
