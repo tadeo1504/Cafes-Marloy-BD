@@ -31,7 +31,7 @@ function Clientes() {
       }
     };
     fetchClientes();
-  }, [url_backend]);
+  }, [url_backend, ModalIsOpenAgregar]);
 
   const handleModify = (cliente) => {
     setClienteEditando(cliente);

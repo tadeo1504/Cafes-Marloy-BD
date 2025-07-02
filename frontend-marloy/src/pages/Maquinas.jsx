@@ -30,7 +30,7 @@ function Maquinas() {
       }
     };
     fetchMaquinas();
-  }, [url_backend]);
+  }, [url_backend, ModalIsOpenAgregar]);
 
   const handleModify = (maquina) => {
     setMaquinaEditando(maquina);
