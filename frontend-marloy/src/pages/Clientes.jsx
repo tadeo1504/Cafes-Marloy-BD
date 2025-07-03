@@ -10,6 +10,7 @@ function Clientes() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [ModalIsOpenAgregar, setModalIsOpenAgregar] = useState(false);
   const [clienteEditando, setClienteEditando] = useState(null);
+  const [error, setError] = useState(null);
   const [clienteNuevo, setClienteNuevo] = useState({
     nombre: '',
     direccion: '',
@@ -23,22 +24,26 @@ function Clientes() {
   useEffect(() => {
     const fetchClientes = async () => {
       try {
+        setError(null); // Reseteamos el error al iniciar la carga
         const response = await axios.get(`${url_backend}/api/clientes`);
         console.log('Clientes obtenidos:', response.data);
         setClientes(response.data.data);
       } catch (error) {
         console.error('Error fetching clientes:', error);
+        setError('Error al obtener clientes');
       }
     };
     fetchClientes();
-  }, [url_backend]);
+  }, [url_backend, ModalIsOpenAgregar]);
 
   const handleModify = (cliente) => {
+    setError(null); // Reseteamos el error al iniciar la edición
     setClienteEditando(cliente);
     setModalIsOpen(true);
   };
 
   const handleAgregarCliente = () => {
+    setError(null); // Reseteamos el error al iniciar la adición
     setClienteNuevo({
       nombre: '',
       direccion: '',
@@ -62,6 +67,7 @@ function Clientes() {
       setModalIsOpen(false);
     } catch (error) {
       console.error('Error updating cliente:', error);
+      setError('Error al actualizar cliente');
     }
   };
 
@@ -71,6 +77,7 @@ function Clientes() {
       setClientes(clientes.filter((c) => c.id !== clienteId));
     } catch (error) {
       console.error('Error deleting cliente:', error);
+      setError('Error al eliminar cliente');
     }
   };
 
@@ -79,6 +86,7 @@ function Clientes() {
       <Header />
       <div className="min-h-screen bg-[#f3ebe4] p-6">
         <h1 className="text-4xl font-bold text-[#4e342e] text-center mb-8">Clientes</h1>
+        {error && <p className="text-red-500 text-center pb-4">{error}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {clientes.map((cliente) => (
             <div
@@ -171,6 +179,9 @@ function Clientes() {
               >
                 Guardar
               </button>
+              <div className="mt-4">
+                {error && <p className="text-red-500">{error}</p>}
+              </div>
             </div>
           </>
         )}
@@ -232,11 +243,15 @@ function Clientes() {
                 setModalIsOpenAgregar(false);
               } catch (error) {
                 console.error("Error al agregar cliente:", error);
+                setError('Error al agregar cliente');
               }
             }}
           >
             Guardar
           </button>
+          <div className="mt-4">
+            {error && <p className="text-red-500">{error}</p>}
+          </div>
         </div>
       </Modal>
 

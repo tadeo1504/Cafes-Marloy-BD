@@ -1,28 +1,35 @@
 from backend.db.conexion import crear_conexion, cerrar_conexion
 
-def reporte_total_mensual_por_cliente():
+def reporte_total_mensual_por_cliente(mes=None, anio=None):
     """Suma del costo de alquiler de máquinas + insumos consumidos por cliente"""
-    while True:
+    
+    # Si no se recibieron parámetros, solicitarlos por consola
+    if mes is None or anio is None:
         print("=== Reporte Total Mensual por Cliente ===")
         print("Este reporte muestra el total a cobrar a cada cliente por alquiler de máquinas e insumos consumidos.")
-        print("Ingrese los datos del mes y año para generar el reporte.")
         
-        try:
-            mes = int(input("Ingrese el mes (1-12): "))
-            anio = int(input("Ingrese el año (YYYY): "))
-            if not (1 <= mes <= 12):
-                raise ValueError("Mes debe estar entre 1 y 12.")
-            if anio < 2000:  # Asumiendo que no se manejan años anteriores a 2000
-                raise ValueError("Año debe ser mayor o igual a 2000.")
-            break
-        except ValueError as e:
-            print(f"❌ Error: {e}. Intente nuevamente.")
-    if not (1 <= mes <= 12) or (anio < 2000 and anio > 2025):
-        print("❌ Mes o año inválido. Deben ser números válidos.")
-        return
+        while True:
+            try:
+                mes = int(input("Ingrese el mes (1-12): "))
+                anio = int(input("Ingrese el año (YYYY): "))
+                if not (1 <= mes <= 12):
+                    raise ValueError("Mes debe estar entre 1 y 12.")
+                if anio < 2000 or anio > 2100:
+                    raise ValueError("Año debe estar entre 2000 y 2100.")
+                break
+            except ValueError as e:
+                print(f"❌ Error: {e}. Intente nuevamente.")
+    else:
+        # Validar si los parámetros recibidos desde el front son correctos
+        if not isinstance(mes, int) or not (1 <= mes <= 12):
+            return {"ok": False, "mensaje": "Mes inválido"}
+        if not isinstance(anio, int) or anio < 2000 or anio > 2100:
+            return {"ok": False, "mensaje": "Año inválido"}
+    
+    # Una vez validados, continuar con la lógica
     conexion = crear_conexion(tipo="admin")
     if not conexion:
-        return
+        return {"ok": False, "mensaje": "Error de conexión"}
 
     try:
         cursor = conexion.cursor(dictionary=True)
@@ -38,21 +45,22 @@ def reporte_total_mensual_por_cliente():
                 AND MONTH(rc.fecha) = %s AND YEAR(rc.fecha) = %s
             LEFT JOIN insumos i ON i.id = rc.id_insumo
             GROUP BY c.id
+            HAVING total > 0
             ORDER BY total DESC;
         """
         cursor.execute(query, (mes, anio))
         resultados = cursor.fetchall()
+        
         if not resultados:
             print("📭 No se encontraron registros para el mes y año especificados.")
-            return
+            return []
 
         print("\n📊 Reporte generado:\n")
         print(f"{'Cliente':<20} {'Alquiler ($)':>15} {'Consumo ($)':>15} {'Total ($)':>15}")
         print("-" * 65)
         for row in resultados:
             print(f"{row['cliente']:<20} {row['total_alquiler'] or 0:>15.2f} {row['total_consumo'] or 0:>15.2f} {row['total'] or 0:>15.2f}")
-
-
+            return resultados
     finally:
         cerrar_conexion(conexion)
 
@@ -78,7 +86,8 @@ def reporte_insumos_mas_consumidos():
         LIMIT 10
         """
         cursor.execute(query)
-        if not cursor.rowcount:
+        resultados = cursor.fetchall()
+        if not resultados:
             print("📭 No se encontraron insumos consumidos.")
             return
         print("\n📊 Top 10 Insumos Más Consumidos:\n")
@@ -87,7 +96,7 @@ def reporte_insumos_mas_consumidos():
         for row in cursor.fetchall():
             print(f"{row['descripcion']:<30} {row['total_usado']:>15} {row['precio_unitario']:>15} {row['costo_total']:>15}")
 
-        return cursor.fetchall()
+        return resultados
     finally:
         cerrar_conexion(conexion)
 
@@ -111,22 +120,24 @@ def reporte_tecnicos_mas_mantenimientos():
         ORDER BY total_mantenimientos DESC
         """
         cursor.execute(query)
-        if  not cursor.rowcount:
+        # Verificar si se encontraron resultados
+        resultados = cursor.fetchall()
+        if  not resultados:
             print("📭 No se encontraron mantenimientos registrados.")
             return
         print("\n📊 Técnicos con Más Mantenimientos:\n")
         print(f"{'Nombre':<20} {'Apellido':<20} {'Total Mantenimientos':>20}")
         print("-" * 60)
-        for row in cursor.fetchall():
+        for row in resultados:
             print(f"{row['nombre']:<20} {row['apellido']:<20} {row['total_mantenimientos']:>20}")
-        return cursor.fetchall()
+        return resultados
     finally:
         cerrar_conexion(conexion)
 
 
 def reporte_clientes_con_mas_maquinas():
     """Clientes con más máquinas instaladas"""
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if not conexion:
         return
 
@@ -143,14 +154,15 @@ def reporte_clientes_con_mas_maquinas():
         ORDER BY cantidad_maquinas DESC
         """
         cursor.execute(query)
-        if not cursor.rowcount:
+        resultados = cursor.fetchall()
+        if not resultados:
             print("📭 No se encontraron clientes con máquinas registradas.")
-            return
+            return []
         print("\n📊 Clientes con Más Máquinas Instaladas:\n")
         print(f"{'Cliente':<30} {'Cantidad de Máquinas':>20}")
         print("-" * 60)
-        for row in cursor.fetchall():
+        for row in resultados:
             print(f"{row['nombre']:<30} {row['cantidad_maquinas']:>20}")
-        return cursor.fetchall()
+        return resultados
     finally:
         cerrar_conexion(conexion)

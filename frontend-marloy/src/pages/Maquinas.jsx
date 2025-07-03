@@ -13,7 +13,7 @@ function Maquinas() {
   const [maquinaNueva, setMaquinaNueva] = useState({
     costo_alquiler_mensual: 0,
     ubicacion_cliente: '',
-    id_cliente: '',
+    id_cliente: 0,
     modelo: ''
   });
 
@@ -30,7 +30,7 @@ function Maquinas() {
       }
     };
     fetchMaquinas();
-  }, [url_backend]);
+  }, [url_backend, ModalIsOpenAgregar]);
 
   const handleModify = (maquina) => {
     setMaquinaEditando(maquina);
