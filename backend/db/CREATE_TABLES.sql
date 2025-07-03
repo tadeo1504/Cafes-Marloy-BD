@@ -2,30 +2,6 @@
 CREATE DATABASE IF NOT EXISTS `obligatorio-bd`;
 USE `obligatorio-bd`;
 
--- Crear usuarios y asignar privilegios
-
--- Usuario administrador
-CREATE USER IF NOT EXISTS 'admin_user'@'%' IDENTIFIED BY 'admin123';
-GRANT ALL PRIVILEGES ON `obligatorio-bd`.* TO 'admin_user'@'%';
-
--- Usuario común
-CREATE USER IF NOT EXISTS 'usuario_comun'@'%' IDENTIFIED BY 'comun123';
-
--- Permisos para usuario común:
--- Puede usar insumos y clientes (ABM)
-GRANT SELECT, INSERT, UPDATE, DELETE ON `obligatorio-bd`.insumos TO 'usuario_comun'@'%';
-GRANT SELECT, INSERT, UPDATE, DELETE ON `obligatorio-bd`.clientes TO 'usuario_comun'@'%';
-
--- Puede ver mantenimientos (no editar)
-GRANT SELECT ON `obligatorio-bd`.mantenimientos TO 'usuario_comun'@'%';
-
--- Puede loguearse y registrarse
-GRANT SELECT, INSERT ON `obligatorio-bd`.login TO 'usuario_comun'@'%';
-
--- Ajustar autenticación por compatibilidad
-ALTER USER 'usuario_comun'@'%' IDENTIFIED WITH caching_sha2_password BY 'comun123';
-ALTER USER 'admin_user'@'%' IDENTIFIED WITH caching_sha2_password BY 'admin123';
-
 -- Crear tablas
 
 -- Tabla login
@@ -117,23 +93,23 @@ INSERT INTO login (correo, contrasena, es_administrador) VALUES
 ('cliente7@correo.com', 'pass', 0);
 
 -- Proveedores
-INSERT INTO proveedores (id, nombre, contacto) VALUES
-(3, 'Distribuidora Central', '098112233'),
-(4, 'Proveedora Sur', '094556677'),
-(5, 'Insumos del Este', '091234567'),
-(6, 'Café Express', '092345678'),
-(7, 'TodoMáquinas', '096789012');
+INSERT INTO proveedores (nombre, contacto) VALUES
+('Distribuidora Central', '098112233'),
+('Proveedora Sur', '094556677'),
+('Insumos del Este', '091234567'),
+('Café Express', '092345678'),
+('TodoMáquinas', '096789012');
 
 -- Insumos
-INSERT INTO insumos (id, descripcion, tipo, precio_unitario, id_proveedor) VALUES
-(2, 'Café en grano', 'Café', 500.00, 1),
-(3, 'Azúcar', 'Edulcorante', 100.00, 2),
-(4, 'Vasos descartables', 'Envase', 50.00, 3),
-(5, 'Stirrers', 'Accesorio', 30.00, 3),
-(6, 'Leche en polvo', 'Lácteo', 120.50, 4),
-(7, 'Cacao', 'Chocolate', 150.00, 4),
-(8, 'Filtro de café', 'Repuesto', 60.00, 5),
-(9, 'Jarra térmica', 'Repuesto', 300.00, 5);
+INSERT INTO insumos (descripcion, tipo, precio_unitario, id_proveedor) VALUES
+('Café en grano', 'Café', 500.00, 1),
+('Azúcar', 'Edulcorante', 100.00, 2),
+('Vasos descartables', 'Envase', 50.00, 3),
+('Stirrers', 'Accesorio', 30.00, 3),
+('Leche en polvo', 'Lácteo', 120.50, 4),
+('Cacao', 'Chocolate', 150.00, 4),
+('Filtro de café', 'Repuesto', 60.00, 5),
+('Jarra térmica', 'Repuesto', 300.00, 5);
 
 -- Clientes
 INSERT INTO clientes (nombre, direccion, telefono, correo) VALUES
@@ -175,3 +151,35 @@ INSERT INTO tecnicos (ci, nombre, apellido, telefono) VALUES
 ('3456789', 'Lucía', 'Fernández', '097345678'),
 ('4567890', 'Martín', 'Silva', '096456789'),
 ('5678901', 'Andrés', 'Gómez', '095567890');
+
+-- Mantenimientos
+INSERT INTO mantenimientos (id_maquina, ci_tecnico, tipo, fecha, observaciones) VALUES
+(1, '1234567', 'Limpieza', '2025-06-01 12:00:00', 'Limpieza general de la máquina'),
+(2, '2345678', 'Reparación', '2025-06-02 14:30:00', 'Cambio de filtro de agua'),
+(3, '3456789', 'Mantenimiento preventivo', '2025-06-05 16:00:00', 'Revisión de componentes internos'),
+(4, '4567890', 'Actualización de software', '2025-06-07 10:15:00', 'Actualización del firmware'),
+(5, '5678901', 'Calibración', '2025-06-09 11:45:00', 'Calibración de la dosificación de café');
+
+-- Crear usuarios y asignar privilegios
+
+-- Usuario administrador
+CREATE USER IF NOT EXISTS 'admin_user'@'%' IDENTIFIED BY 'admin123';
+GRANT ALL PRIVILEGES ON `obligatorio-bd`.* TO 'admin_user'@'%';
+
+-- Usuario común
+CREATE USER IF NOT EXISTS 'usuario_comun'@'%' IDENTIFIED BY 'comun123';
+
+-- Permisos para usuario común:
+-- Puede usar insumos y clientes (ABM)
+GRANT SELECT, INSERT, UPDATE, DELETE ON `obligatorio-bd`.insumos TO 'usuario_comun'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `obligatorio-bd`.clientes TO 'usuario_comun'@'%';
+
+-- Puede ver mantenimientos (no editar)
+GRANT SELECT ON `obligatorio-bd`.mantenimientos TO 'usuario_comun'@'%';
+
+-- Puede loguearse y registrarse
+GRANT SELECT, INSERT ON `obligatorio-bd`.login TO 'usuario_comun'@'%';
+
+-- Ajustar autenticación por compatibilidad
+ALTER USER 'usuario_comun'@'%' IDENTIFIED WITH caching_sha2_password BY 'comun123';
+ALTER USER 'admin_user'@'%' IDENTIFIED WITH caching_sha2_password BY 'admin123';
