@@ -32,7 +32,7 @@
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone <https://github.com/tadeo1504/Cafes-Marloy-BD>
+git clone https://github.com/tadeo1504/Cafes-Marloy-BD
 cd Cafes-Marloy-BD
 ```
 
