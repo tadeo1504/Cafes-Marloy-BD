@@ -44,6 +44,24 @@ cd Cafes-Marloy-BD
 pip install flask flask-cors mysql-connector-python mysqlclient PyJWT python-dotenv
 ```
 
+#### Configurar variables de entorno
+
+Crear un archivo `.env` en la carpeta `backend/` con la siguiente configuración:
+
+```properties
+DB_HOST=localhost
+DB_NAME=obligatorio-bd
+SECRET_KEY=a_secret_key
+
+DB_ADMIN_USER=admin_user
+DB_ADMIN_PASSWORD=admin123
+
+DB_USER_COMUN=usuario_comun
+DB_PASSWORD_COMUN=comun123
+```
+
+**Importante:** Modifica los valores de `DB_ADMIN_USER`, `DB_ADMIN_PASSWORD`, `DB_USER_COMUN` y `DB_PASSWORD_COMUN` según las credenciales de tu servidor MySQL local.
+
 #### Configurar la base de datos
 
 **Primera vez solamente:** Configurar credenciales de MySQL en `backend/db/crear_db.py` y ejecutar:
