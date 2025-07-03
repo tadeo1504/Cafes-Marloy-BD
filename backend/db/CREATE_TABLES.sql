@@ -2,6 +2,32 @@
 CREATE DATABASE IF NOT EXISTS `obligatorio-bd`;
 USE `obligatorio-bd`;
 
+-- Crear usuarios y asignar privilegios
+
+-- Usuario administrador
+CREATE USER IF NOT EXISTS 'admin_user'@'%' IDENTIFIED BY 'admin123';
+GRANT ALL PRIVILEGES ON `obligatorio-bd`.* TO 'admin_user'@'%';
+
+-- Usuario común
+CREATE USER IF NOT EXISTS 'usuario_comun'@'%' IDENTIFIED BY 'comun123';
+
+-- Permisos para usuario común:
+-- Puede usar insumos y clientes (ABM)
+GRANT SELECT, INSERT, UPDATE, DELETE ON `obligatorio-bd`.insumos TO 'usuario_comun'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `obligatorio-bd`.clientes TO 'usuario_comun'@'%';
+
+-- Puede ver mantenimientos (no editar)
+GRANT SELECT ON `obligatorio-bd`.mantenimientos TO 'usuario_comun'@'%';
+
+-- Puede loguearse y registrarse
+GRANT SELECT, INSERT ON `obligatorio-bd`.login TO 'usuario_comun'@'%';
+
+-- Ajustar autenticación por compatibilidad
+ALTER USER 'usuario_comun'@'%' IDENTIFIED WITH caching_sha2_password BY 'comun123';
+ALTER USER 'admin_user'@'%' IDENTIFIED WITH caching_sha2_password BY 'admin123';
+
+-- Crear tablas
+
 -- Tabla login
 CREATE TABLE login (
     correo VARCHAR(100) PRIMARY KEY,

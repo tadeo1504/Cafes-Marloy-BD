@@ -67,6 +67,7 @@ def registro():
     data = request.json
     correo = data.get('correo')
     contrasena = data.get('contrasena')
+    es_administrador = data.get('admin', 0)
 
     if not correo or not contrasena:
         return jsonify({"ok": False, "mensaje": "Correo y contraseña son obligatorios"}), 400
@@ -74,7 +75,7 @@ def registro():
     if len(correo) > 100 or len(contrasena) > 100:
         return jsonify({"ok": False, "mensaje": "Los campos exceden el largo permitido"}), 400
 
-    resultado = registrar_usuario(correo, contrasena)
+    resultado = registrar_usuario(correo, contrasena, es_administrador)
 
     if resultado.get("success"):
         return jsonify({"ok": True, "mensaje": "Usuario registrado correctamente"})
@@ -281,13 +282,28 @@ def post_mantenimiento():
     conexion = crear_conexion(tipo="admin")  # solo los administradores pueden acceder a esta ruta
     if not conexion:
         return jsonify({"ok": False, "mensaje": "Error de conexión"}), 500
+    
+    required_fields = ["id_maquina", "tipo", "ci_tecnico", "observaciones"]
+    if not all(data.get(field) for field in required_fields):
+        return jsonify({"ok": False, "mensaje": "Faltan campos requeridos"}), 400
+    if any(len(str(data.get(f))) > 100 for f in ["tipo", "observaciones"]):
+        return jsonify({"ok": False, "mensaje": "Algún campo de texto excede el largo permitido"}), 400
+    try:
+        id_maquina = int(data.get("id_maquina"))
+        ci_tecnico = int(data.get("ci_tecnico"))
 
+    except (ValueError, TypeError):
+        return jsonify({"ok": False, "mensaje": "id_maquina y ci_tecnico deben ser numéricos"}), 400
+
+    if not id_maquina or id_maquina <= 0 or not ci_tecnico or ci_tecnico <= 0:
+        return jsonify({"ok": False, "mensaje": "ID de máquina o CI de técnico inválidos"}), 400
+    
     exito = insertar_mantenimiento(
         conexion=conexion,
-        fecha=data.get("fecha"),
-        descripcion=data.get("descripcion"),
-        costo=data.get("costo"),
-        proveedor_id=data.get("proveedor_id")
+        id_maquina=data.get("id_maquina"),
+        tipo=data.get("tipo"),
+        ci_tecnico=data.get("ci_tecnico"),
+        observaciones=data.get("observaciones")
     )
     cerrar_conexion(conexion)
     if exito:
@@ -574,9 +590,17 @@ def get_registros_consumo():
 def post_registro_consumo():
     data = request.json
 
-    required_fields = ["fecha", "cantidad", "insumo_id", "cliente_id"]
+    required_fields = ["id_maquina", "id_insumo", "cantidad_usada"]
     if not all(field in data for field in required_fields):
         return jsonify({"ok": False, "mensaje": "Faltan campos requeridos"}), 400
+    if any(len(str(data.get(f))) > 100 for f in ["fecha", "cantidad", "insumo_id", "cliente_id"]):
+        return jsonify({"ok": False, "mensaje": "Algún campo excede el largo máximo permitido"}), 400
+    try:
+        data["cantidad_usada"] = int(data.get("cantidad_usada"))  # convertir a entero
+        data["id_insumo"] = int(data.get("id_insumo"))  # convertir a entero
+        data["id_maquina"] = int(data.get("id_maquina"))  # convertir a entero
+    except (ValueError, TypeError):
+        return jsonify({"ok": False, "mensaje": "cantidad_usada, id_insumo y id_maquina deben ser numéricos"}), 400
 
     conexion = crear_conexion(tipo="admin")
     if not conexion:
@@ -584,10 +608,9 @@ def post_registro_consumo():
 
     exito = insertar_registro_consumo(
         conexion,
-        data["fecha"],
-        data["cantidad"],
-        data["insumo_id"],
-        data["cliente_id"]
+        data["id_maquina"],
+        data["id_insumo"],
+        data["cantidad_usada"]
     )
     cerrar_conexion(conexion)
 
@@ -599,9 +622,17 @@ def post_registro_consumo():
 def put_registro_consumo(id):
     data = request.json
 
-    required_fields = ["fecha", "cantidad", "insumo_id", "cliente_id"]
+    required_fields = ["id_maquina", "id_insumo", "cantidad_usada", 'fecha']
     if not all(field in data for field in required_fields):
         return jsonify({"ok": False, "mensaje": "Faltan campos requeridos"}), 400
+    if any(len(str(data.get(f))) > 100 for f in ["fecha", "cantidad", "insumo_id", "cliente_id"]):
+        return jsonify({"ok": False, "mensaje": "Algún campo excede el largo máximo permitido"}), 400
+    try:
+        data["cantidad"] = int(data.get("cantidad"))  # convertir a entero
+        data["insumo_id"] = int(data.get("insumo_id"))  # convertir a entero
+        data["id_maquina"] = int(data.get("id_maquina"))  # convertir a entero
+    except (ValueError, TypeError):
+        return jsonify({"ok": False, "mensaje": "cantidad, insumo_id y id_maquina deben ser numéricos"}), 400
 
     conexion = crear_conexion(tipo="admin")
     if not conexion:
@@ -610,9 +641,9 @@ def put_registro_consumo(id):
     exito = editar_registro_consumo(
         conexion,
         data["fecha"],
-        data["cantidad"],
-        data["insumo_id"],
-        data["cliente_id"],
+        data["id_maquina"],
+        data["id_insumo"],
+        data["cantidad_usada"],
         id
     )
     cerrar_conexion(conexion)
@@ -639,12 +670,14 @@ def delete_registro_consumo(id):
 
 @app.route('/api/reportes/total-mensual-cliente', methods=['GET'])
 def get_reporte_total_mensual_por_cliente():
-    data = request.args
-    cliente_id = data.get("cliente_id")
-    if not cliente_id:
-        return jsonify({"ok": False, "mensaje": "Se requiere cliente_id"}), 400
+    try:
+        mes = int(request.args.get("mes"))
+        anio = int(request.args.get("anio"))
+        print(f"Mes: {mes}, Año: {anio}")
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "mensaje": "Parámetros inválidos"}), 400
 
-    resultado = reporte_total_mensual_por_cliente(cliente_id)
+    resultado = reporte_total_mensual_por_cliente(mes, anio)
     return jsonify(resultado)
 
 @app.route('/api/reportes/insumos-mas-consumidos', methods=['GET'])

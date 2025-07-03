@@ -54,7 +54,7 @@ def login_usuario(correo, contrasena):
         cerrar_conexion(conexion)
 
 
-def registrar_usuario(correo, contrasena):
+def registrar_usuario(correo, contrasena, es_administrador=0):
     conexion = crear_conexion()
     if conexion is None:
         return {'error': 'No se pudo conectar a la base de datos.'}
@@ -62,8 +62,8 @@ def registrar_usuario(correo, contrasena):
         try:
             cursor = conexion.cursor()
             hashed_contrasena = hashlib.sha256(contrasena.encode()).hexdigest()
-            query = 'INSERT INTO login (correo, contrasena) VALUES (%s, %s)'
-            cursor.execute(query, (correo, hashed_contrasena))
+            query = 'INSERT INTO login (correo, contrasena, es_administrador) VALUES (%s, %s, %s)'
+            cursor.execute(query, (correo, hashed_contrasena, es_administrador))
             conexion.commit()
             return {'success': True, 'message': 'Usuario registrado exitosamente.'}
         except mysql.connector.Error as err:

@@ -13,7 +13,7 @@ function Maquinas() {
   const [maquinaNueva, setMaquinaNueva] = useState({
     costo_alquiler_mensual: 0,
     ubicacion_cliente: '',
-    id_cliente: '',
+    id_cliente: 0,
     modelo: ''
   });
 

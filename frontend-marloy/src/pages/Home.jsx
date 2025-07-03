@@ -49,30 +49,45 @@ function Home() {
       </div>
 
       <div className="p-6 grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-10">
-        {esAdmin && (
-          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/proveedores')}>
-            Proveedores
-          </button>
-        )}
-        {esAdmin && (
-          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/maquinas')}>
-            Maquinas
-          </button>
-        )}
         <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/clientes')}>
           Clientes
         </button>
         <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/insumos')}>
           Insumos
         </button>
+        <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/mantenimientos')}>
+          Mantenimientos
+        </button>
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/maquinas')}>
+            Maquinas
+          </button>
+        )}
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/proveedores')}>
+            Proveedores
+          </button>
+        )}
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/reportes')}>
+            Reportes
+          </button>
+        )}
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/registro-consumos')}>
+            Registro de consumo
+          </button>
+        )}
         {esAdmin && (
           <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/tecnicos')}>
             Técnicos
           </button>
         )}
-        <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/mantenimientos')}>
-          Mantenimientos
-        </button>
+        {esAdmin && (
+          <button className="bg-[#8d6e63] hover:bg-[#6d4c41] text-white h-32 w-full rounded-xl shadow-md text-xl font-semibold" onClick={() => navigateTo('/crear-usuarios')}>
+            Crear Usuarios
+          </button>
+        )}
       </div>
     </div>
   )
