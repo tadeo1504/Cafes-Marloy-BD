@@ -26,13 +26,13 @@
 ### Prerrequisitos
 
 - Python 3.11 o superior
-- MySQL Server
+- MySQL 
 - Node.js y npm
 
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone <https://github.com/tadeo1504/Cafes-Marloy-BD>
 cd Cafes-Marloy-BD
 ```
 
