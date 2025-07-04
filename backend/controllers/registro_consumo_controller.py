@@ -13,7 +13,7 @@ def alta_registro_consumo():
     # fecha = input("Fecha (YYYY-MM-DD): ")
     cantidad_usada = input("Cantidad Usada (kg/litros): ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         resultado = insertar_registro_consumo(conexion, id_maquina, id_insumo, cantidad_usada)
         cerrar_conexion(conexion)
@@ -30,7 +30,7 @@ def modificar_registro_consumo():
     fecha = input("Nueva Fecha (YYYY-MM-DD): ")
     cantidad_usada = input("Nueva Cantidad Usada: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         resultado = editar_registro_consumo(conexion, id, id_maquina, id_insumo, fecha, cantidad_usada)
         cerrar_conexion(conexion)
@@ -43,7 +43,7 @@ def baja_registro_consumo():
     print("=== Baja de Registro de Consumo ===")
     id = input("ID del Registro a eliminar: ")
 
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         resultado = eliminar_registro_consumo(conexion, id)
         cerrar_conexion(conexion)
@@ -54,7 +54,7 @@ def baja_registro_consumo():
 
 def listar_registros_consumo():
     print("=== Lista de Registros de Consumo ===")
-    conexion = crear_conexion()
+    conexion = crear_conexion(tipo="admin")
     if conexion:
         registros = mostrar_registros_consumo(conexion)
         cerrar_conexion(conexion)

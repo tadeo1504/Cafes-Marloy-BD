@@ -93,7 +93,7 @@ def reporte_insumos_mas_consumidos():
         print("\n📊 Top 10 Insumos Más Consumidos:\n")
         print(f"{'Descripción':<30} {'Total Usado':>15} {'Precio Unitario':>15} {'Costo Total':>15}")
         print("-" * 75) #esto es para alinear las columnas jsakjs
-        for row in cursor.fetchall():
+        for row in resultados:
             print(f"{row['descripcion']:<30} {row['total_usado']:>15} {row['precio_unitario']:>15} {row['costo_total']:>15}")
 
         return resultados
