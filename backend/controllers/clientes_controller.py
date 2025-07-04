@@ -17,6 +17,10 @@ def alta_cliente():
     telefono = input("Teléfono: ")
     correo = input("Correo: ")
 
+    if (nombre == ''):
+        print("❌ El nombre es obligatorio.")
+        return
+
     conexion = crear_conexion()
     if conexion:
         exito = insertar_cliente(conexion, nombre, direccion, telefono, correo)

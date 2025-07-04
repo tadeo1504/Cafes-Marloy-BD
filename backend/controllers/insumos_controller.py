@@ -16,6 +16,10 @@ def alta_insumo():
     precio_unitario = input("Precio unitario: ")
     id_proveedor = input("Id del Proveedor: ")
 
+    if (precio_unitario == "" or id_proveedor == "" or descripcion ==''):
+        print("❌ El precio unitario, el ID del proveedor y la descripción son obligatorios.")
+        return
+
     conexion = crear_conexion()
     if conexion:
         exito = insertar_insumo(conexion, descripcion, tipo, precio_unitario, id_proveedor)

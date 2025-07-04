@@ -15,6 +15,10 @@ def alta_proveedor():
     nombre = input("Nombre: ")
     contacto = input("Número de Contacto: ")
 
+    if nombre == "":
+        print("❌ El nombre es obligatorio.")
+        return
+    
     conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = insertar_proveedor(conexion, nombre, contacto)

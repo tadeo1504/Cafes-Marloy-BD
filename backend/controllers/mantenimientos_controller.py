@@ -17,6 +17,10 @@ def alta_mantenimiento():
     tipo = input("Tipo: ")
     observaciones = input("Observaciones: ")
 
+    if id_maquina == "" or ci_tecnico == "" or tipo == "" or observaciones == "":
+        print("❌ Los campos ID Maquina, CI Tecnico, Tipo y Observaciones son obligatorios.")
+        return
+
     conexion = crear_conexion()
     if conexion:
         exito = insertar_mantenimiento(conexion, id_maquina, ci_tecnico, tipo, observaciones)

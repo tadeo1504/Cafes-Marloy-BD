@@ -16,6 +16,10 @@ def alta_maquina():
     ubicacion_cliente = input("ubicacion cliente: ")
     costo_alquiler_mensual = input("costo mensual: ")
 
+    if modelo == "" or id_cliente == "" or costo_alquiler_mensual == "":
+        print("❌ Los campos son modelo, id cliente y costo mensual obligatorios.")
+        return
+
     conexion = crear_conexion(tipo="admin")
     if conexion:
         exito = insertar_maquina(conexion, modelo, id_cliente, ubicacion_cliente, costo_alquiler_mensual)
